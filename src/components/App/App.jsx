@@ -1,7 +1,12 @@
 import React from 'react';
 import axios from 'axios';
 import './App.css';
+
 import CeeJayTreeBranch from '../CeeJayTreeBranch/CeeJayTreeBranch';
+import Pete from '../Pete/Pete';
+import Testerooni from '../Testerooni/Testerooni'
+import Mimi from '../Mimi/Mimi';
+
 
 function App() {
 
@@ -13,8 +18,12 @@ function App() {
   
       <img src='images/pizza_photo.png' />
       <p>Pizza is great.</p>
+
       <CeeJayTreeBranch />
-  
+      <Pete />
+      <Testerooni/>
+      <Mimi />
+
     </div>
   );
 }
