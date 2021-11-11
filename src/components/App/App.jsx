@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import './App.css';
+import JenPizza from '../JenPizza/JenPizza';
 
 import CeeJayTreeBranch from '../CeeJayTreeBranch/CeeJayTreeBranch';
 import Pete from '../Pete/Pete';
@@ -19,6 +20,7 @@ function App() {
       <img src='images/pizza_photo.png' />
       <p>Pizza is great.</p>
 
+      <JenPizza />
       <CeeJayTreeBranch />
       <Pete />
       <Testerooni/>
