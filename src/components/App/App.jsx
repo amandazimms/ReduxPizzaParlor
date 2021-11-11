@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import './App.css';
+import Testerooni from '../Testerooni/Testerooni'
 import Mimi from '../Mimi/Mimi';
 
 function App() {
@@ -13,6 +14,8 @@ function App() {
   
       <img src='images/pizza_photo.png' />
       <p>Pizza is great.</p>
+
+      <Testerooni/>
       <Mimi />
   
     </div>
