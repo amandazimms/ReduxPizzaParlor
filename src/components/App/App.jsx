@@ -3,22 +3,19 @@ import axios from 'axios';
 import './App.css';
 import {useEffect} from "react";
 import {useState} from "react";
+import {useSelector, useDispatch} from 'react-redux';
 
 function App() {
-  const [pizzas, setPizzas] = useState( [] );
+  const pizzas = useSelector(store=> store.pizzas);
+  const dispatch = useDispatch();
 
   useEffect( () => {
     console.log( 'component loaded' );
     getPizzas();
   }, []);
 
-  const getPizzas = ()=>{
-    axios.get('/api/pizza' ).then (( response )=>{
-      setPizzas(response.data);
-    }).catch( ( err )=>{
-      console.log( err );
-      alert( 'problem!' );
-    })
+  const getPizzas = () =>{
+    dispatch( { type:'GET' } );
   }
   
   return (
