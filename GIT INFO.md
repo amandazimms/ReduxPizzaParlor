@@ -11,3 +11,13 @@ making a new feature = make a new branch & go to that branch
   git checkout master/main
   git pull
   now you're up to date
+
+to delete a branch locally:
+  git branch -d <branch name>
+
+to delete a branch remotely:
+  git push origin --delete <branch name>
+
+force to to delete a branch completely, even if changes aren't integrated: 
+  git branch -D <branch name>
+  
