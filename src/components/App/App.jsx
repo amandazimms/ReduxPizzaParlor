@@ -3,6 +3,12 @@ import axios from 'axios';
 import './App.css';
 import JenPizza from '../JenPizza/JenPizza';
 
+import CeeJayTreeBranch from '../CeeJayTreeBranch/CeeJayTreeBranch';
+import Pete from '../Pete/Pete';
+import Testerooni from '../Testerooni/Testerooni'
+import Mimi from '../Mimi/Mimi';
+
+
 function App() {
 
   return (
@@ -15,7 +21,11 @@ function App() {
       <p>Pizza is great.</p>
 
       <JenPizza />
-  
+      <CeeJayTreeBranch />
+      <Pete />
+      <Testerooni/>
+      <Mimi />
+
     </div>
   );
 }
