@@ -7,11 +7,11 @@ import {Provider} from 'react-redux';
 import logger from 'redux-logger';
 import axios from 'axios';
 
-const pizzas = (state = [], action) => {
+const pizzas =  (state = [], action) => {
     if ( action.type === 'GET' ){
-        axios.get('/api/pizza').then (( response )=>{
+        axios.get('/api/pizza').then ( ( response )=>{
             console.log('In Get:', response.data);
-            return [...state, response.data];
+            state = [...state, response.data];
         }).catch( ( err )=>{
             console.log( err );
             alert( 'problem!' );

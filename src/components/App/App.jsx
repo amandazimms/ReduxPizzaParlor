@@ -14,8 +14,9 @@ function App() {
     getPizzas();
   }, []);
 
-  const getPizzas = () =>{
+  const getPizzas = async () =>{
     dispatch( { type:'GET' } );
+    console.log(pizzas);
   }
   
   return (
