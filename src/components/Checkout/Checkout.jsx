@@ -21,19 +21,36 @@ function Checkout( props ){
     // const dispatch = useDispatch();
 
     return(
-        <div>
         <Container>
             <Typography variant="h2">Step 3: Checkout</Typography>
-          <Grid container spacing={10} justify="center">
-            <Grid item align="left" style={{ 
-              border: 1,
-              borderRadius: 15 }}>
-                <Typography variant="h4">order.name</Typography>
-                <Typography variant="h4">order.street_address</Typography>
-                <Typography variant="h4">order.city, order.zip</Typography>
+          <Grid container component={Paper}>
+            <Grid item>
+              <Box px={10} py={5}>
+                <Paper>
+                  <Box p={3}>
+                  <Typography variant="h4">order.name</Typography>
+                  <Typography variant="h4">order.street_address</Typography>
+                  <Typography variant="h4">order.city, order.zip</Typography>
+                  </Box>
+                </Paper>
+              </Box>
             </Grid>
-            <Grid item align="right">
-            <Typography variant="h4">order.type</Typography>
+            <Grid>
+            <Box px={10} py={5} >
+              </Box>
+            </Grid>
+            <Grid>
+            <Box px={10} py={5} >
+              </Box>
+            </Grid>
+            <Grid item>
+              <Box px={10} py={5}>
+                <Paper item align="right">
+                <Box p={3}>
+                  <Typography variant="h4">order.type</Typography>
+                  </Box>
+                </Paper>
+              </Box>
             </Grid>
           </Grid>
             <TableContainer component={Paper} >
@@ -56,12 +73,17 @@ function Checkout( props ){
         </TableBody>
       </Table>
     </TableContainer>
-    <Typography align="right" variant="h4">Total: order.total</Typography>
+    <Box py={5}>
+      <Paper>
+        <Box p={2}>
+          <Typography align="right" variant="h4">Total: order.total</Typography>
+        </Box>
+      </Paper>
+    </Box>
     <Button variant="contained" color="primary" size="large" style={{
       fontSize: 24
     }}>Checkout</Button>
   </Container>
-  </div>
     )
 }
 
