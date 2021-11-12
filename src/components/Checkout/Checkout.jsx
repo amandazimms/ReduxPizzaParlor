@@ -1,6 +1,6 @@
 import { useState } from "react";
 // import {useDispatch, useSelector} from 'react-redux';
-import { Box, Button, Table, TableHead, TableBody, TableCell, TableContainer,
+import { Typography, Grid, Container, Box, Button, Table, TableHead, TableBody, TableCell, TableContainer,
 TableRow, Paper } from '@material-ui/core';
 
 function Checkout( props ){
@@ -22,16 +22,20 @@ function Checkout( props ){
 
     return(
         <div>
-            <h1>Step 3: Checkout</h1>
-
-            <Box align="left">
-                <h3>order.name</h3>
-                <h3>order.street_address</h3>
-                <h3>order.city, order.zip</h3>
-            </Box>
-            <Box align="right">
-                <h2>order.type</h2>
-            </Box>
+        <Container>
+            <Typography variant="h2">Step 3: Checkout</Typography>
+          <Grid container spacing={10} justify="center">
+            <Grid item align="left" style={{ 
+              border: 1,
+              borderRadius: 15 }}>
+                <Typography variant="h4">order.name</Typography>
+                <Typography variant="h4">order.street_address</Typography>
+                <Typography variant="h4">order.city, order.zip</Typography>
+            </Grid>
+            <Grid item align="right">
+            <Typography variant="h4">order.type</Typography>
+            </Grid>
+          </Grid>
             <TableContainer component={Paper} >
       <Table>
         <TableHead>
@@ -52,10 +56,12 @@ function Checkout( props ){
         </TableBody>
       </Table>
     </TableContainer>
-    <h1 align="right">Total: order.total</h1>
-    <Button>Checkout</Button>
-
-        </div>
+    <Typography align="right" variant="h4">Total: order.total</Typography>
+    <Button variant="contained" color="primary" size="large" style={{
+      fontSize: 24
+    }}>Checkout</Button>
+  </Container>
+  </div>
     )
 }
 
