@@ -1,12 +1,19 @@
 ### link to trello:
 - https://trello.com/b/N2R6nvLP/pizza-is-life
 
+### link to Jen's repo:
+- https://github.com/jenny-alexander/redux-pizza-parlor
 
 
 ### GIT BRANCHING aka How to work together :)
 
-#### making a new feature = make a new branch & go to that branch
-- git checkout -b <branch name>
+#### Getting started
+- one person should create a new repo from the prime template
+- then add the rest of you as collaborators on their repo
+- the rest of you can then clone from that person's master repo
+
+#### Making a new feature on its own branch
+- git checkout -b <branch name> (makes a branch and brings you to it in one step)
 - (work on your feature)
 - git add .
 - git commit -m "bla"
@@ -26,4 +33,3 @@
 
 #### force to to delete a branch completely, even if changes aren't integrated: 
 - git branch -D <branch name>
-
