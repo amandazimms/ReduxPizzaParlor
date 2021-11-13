@@ -11,20 +11,42 @@ const pizzas =  (state = [], action) => {
     if ( action.type === 'GET' ){
         axios.get('/api/pizza').then ( ( response )=>{
             console.log('In Get:', response.data);
-            state = [...state, response.data];
+            return [...state, response.data];
         }).catch( ( err )=>{
             console.log( err );
             alert( 'problem!' );
         }) 
     }
+    if (action.type === 'ADD_PIZZAS'){
+      return [...state, action.payload];
+    }
     return state;
+}
+
+const orders =  (state = [], action) => {
+  if ( action.type === 'ADD_CUSTOMER' ){
+      return [...state, action.payload];
+  }
+  if (action.type === 'POST'){
+    state = [...state, action.payload]
+    axios.post(`/api/order`, [...state, action.payload]).then (( response )=>{
+      console.log('IN POST: ', state);
+      state = [];
+      // trying to figure out what other calls we want here too
+    }).catch( ( err )=>{
+      console.log( err );
+      alert( 'problem!' );
+    })
+  }
+  return state;
 }
 
 // a store
 const storeInstance = createStore(
     combineReducers(
       {
-        pizzas
+        pizzas,
+        orders
       }
     ),
     applyMiddleware(
