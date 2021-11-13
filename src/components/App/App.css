@@ -1,12 +1,11 @@
-.App {
+/* .App {
   text-align: center;
-}
+} */
 
 .App-header {
-  background-color: #222;
+  background-color: rgba(237, 187, 134, 0.283);
   height: 70px;
   padding: 20px;
-  color: white;
   margin-bottom: 20px;
 }
 
