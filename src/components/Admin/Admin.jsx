@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { TextField } from '@material-ui/core';
-
+import DataTable from '../DataTable/DataTable';
 
 function Admin( props ){
     // const[ name, setName ]=useState( null );
@@ -9,7 +8,11 @@ function Admin( props ){
         <div>
             <h1>Admin</h1>
             <p> props: { JSON.stringify( props ) } </p>
-            <TextField></TextField>
+            
+
+
+            <DataTable/>
+
         </div>
     )
 }
