@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import './App.css';
-import Admin from '../Admin/Admin';
+import Admin from '../Admin/Admin'; //todo remove this before merging branch
 
 function App() {
 
@@ -13,6 +13,8 @@ function App() {
   
       <img src='images/pizza_photo.png' />
       <p>Pizza is great.</p>
+      <Admin/>
+      {/* todo ^ remove this before merging branch */}
     </div>
   );
 }
