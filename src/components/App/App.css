@@ -3,10 +3,11 @@
 } */
 
 .App-header {
-  background-color: rgba(237, 187, 134, 0.283);
+  background-color: rgba(17, 41, 179, 0.982);
   height: 70px;
   padding: 20px;
   margin-bottom: 20px;
+  color: white;
 }
 
 .App-title {
