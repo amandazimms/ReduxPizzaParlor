@@ -8,7 +8,7 @@ import {createStore, combineReducers, applyMiddleware} from 'redux';
 
 
 const orders =  (state = [
-  //todo remove placeholder data and use DB instead
+  //todo can remove 'annabel' and 'josie' placeholder/testing data once Admin successfully displays DB orders on DOM
       { name: 'Annabel', 
           orderTime: '11/13 at 7:13pm', 
           type: 'delivery', 

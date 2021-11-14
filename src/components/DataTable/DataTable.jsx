@@ -15,12 +15,12 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import {useSelector} from 'react-redux';
 
 
+//DataTable is a sleek MUI collapsible table
 function DataTable() {
-    // const reducerName = useSelector(store => store.reducerName);
     const orders = useSelector(store=> store.orders);
 
     const rows = orders;
-        //todo leaving this placeholder data here for possible testing purposes later:
+        //todo can remove 'annabel' and 'josie' placeholder/testing data once Admin successfully displays DB orders on DOM
         // [{ 
         //     name: 'Annabel', 
         //     orderTime: '11/13 at 7:13pm', 
@@ -30,15 +30,17 @@ function DataTable() {
         //         {id: 1, quantity: 1}, 
         //         {id: 5, quantity: 1} 
         //     ] },
-        // { name: 'Josie', orderTime: '11/13 at 6:29pm', type: 'pickup', cost: 21.99, pizzas: [ {id: 2, quantity: 1}, {id: 3, quantity: 1}, {id: 4, quantity: 1}  ] } ];
 
     return (
+
         <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
             <TableHead>
             <TableRow>
+
+             {/* Table TITLES */}
                 <TableCell/>
-                {/* ^ empty cell to hold place for arrows beneath */}
+                {/* ^ empty cell to hold place for arrows beneath, which require no title */}
                 <TableCell><h3>Name</h3></TableCell>
                 <TableCell align="right"><h3>Time Order Placed</h3></TableCell>
                 <TableCell align="right"><h3>Type</h3></TableCell>
@@ -46,7 +48,8 @@ function DataTable() {
             </TableRow>
             </TableHead>
             <TableBody>
-                {console.log('rows:', rows)}
+            
+            {/* Table ROWS */}
             {rows.map((row) => (
                 <Row key={row.name} row={row} />
             ))}
@@ -75,23 +78,27 @@ function Row(props) {
               {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
             </IconButton>
           </TableCell>
-          <TableCell component="th" scope="row">
-            {row.name}
-          </TableCell>
+
+          {/* Table CELLS that contain our data (passed from orders to rows) */}
+          <TableCell component="th" scope="row">{row.name}</TableCell>
           <TableCell align="right">{row.orderTime}</TableCell>
           <TableCell align="right">{row.type}</TableCell>
           <TableCell align="right">{row.cost}</TableCell>
         </TableRow>
         <TableRow>
+
+          {/* Collapsible portion - shows which pizzas were on each order   */}
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
             <Collapse in={open} timeout="auto" unmountOnExit>
               <Box sx={{ margin: 1 }}>
                 <h4 align="center">Pizzas Ordered</h4>
                 <Table size="small" aria-label="purchases">
                   <TableBody>
-                    {row.pizzas.map( (pizzah) => (
-                    <TableRow key={pizzah.id}>
-                        <TableCell align="center">ID:{pizzah.id} | Quantity:{pizzah.quantity}</TableCell>
+                    
+                    {/* Map through the pizza objects and display their ID and QTY */}
+                    {row.pizzas.map( (pizza) => (
+                    <TableRow key={pizza.id}>
+                        <TableCell align="center">ID:{pizza.id} | Quantity:{pizza.quantity}</TableCell>
                     </TableRow>
                     ))}
                   </TableBody>

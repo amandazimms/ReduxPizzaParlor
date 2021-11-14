@@ -6,7 +6,7 @@ function Admin( props ){
 
     return(
         <div>
-            <h1>Admin</h1>
+            <h1>Prime Pizza Orders</h1>
             <DataTable/>
         </div>
     )

@@ -14,6 +14,7 @@ function App() {
       
       <BrowserRouter>
         <Routes>
+            {/* reminder that the Admin page should not be linked, only reachable by visiting /Admin in URL */}
             <Route path='/Admin' element={<Admin/>}></Route>
         </Routes>
       </BrowserRouter>
