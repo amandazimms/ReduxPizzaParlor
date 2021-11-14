@@ -7,12 +7,7 @@ function Admin( props ){
     return(
         <div>
             <h1>Admin</h1>
-            <p> props: { JSON.stringify( props ) } </p>
-            
-
-
             <DataTable/>
-
         </div>
     )
 }
