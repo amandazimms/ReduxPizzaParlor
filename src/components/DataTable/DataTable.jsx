@@ -52,29 +52,12 @@ function Row(props) {
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
-              <Typography variant="h6" gutterBottom component="div">
-                History
-              </Typography>
+              <h4 align="center">Pizzas Ordered</h4>
               <Table size="small" aria-label="purchases">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Date</TableCell>
-                    <TableCell>Customer</TableCell>
-                    <TableCell align="right">Amount</TableCell>
-                    <TableCell align="right">Total price ($)</TableCell>
-                  </TableRow>
-                </TableHead>
                 <TableBody>
                   {row.pizzas.map((pizzaRow) => (
                     <TableRow key={pizzaRow.date}>
-                      <TableCell component="th" scope="row">
-                        {pizzaRow.date}
-                      </TableCell>
-                      <TableCell>{pizzaRow.customerId}</TableCell>
-                      <TableCell align="right">{pizzaRow.amount}</TableCell>
-                      <TableCell align="right">
-                        {Math.round(pizzaRow.amount * row.price * 100) / 100}
-                      </TableCell>
+                      <TableCell align="center">{pizzaRow}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -115,10 +98,10 @@ export default function DataTable() {
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell >Name</TableCell>
-            <TableCell align="right">Time Order Placed</TableCell>
-            <TableCell align="right">Type</TableCell>
-            <TableCell align="right">Cost</TableCell>
+            <TableCell><h3>Name</h3></TableCell>
+            <TableCell align="right"><h3>Time Order Placed</h3></TableCell>
+            <TableCell align="right"><h3>Type</h3></TableCell>
+            <TableCell align="right"><h3>Cost</h3></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
