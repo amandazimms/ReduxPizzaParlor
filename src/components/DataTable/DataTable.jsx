@@ -19,12 +19,18 @@ function DataTable() {
     // const reducerName = useSelector(store => store.reducerName);
     const orders = useSelector(store=> store.orders);
 
-    const rows = [
-        orders
-        // { name: 'Annabel', orderTime: '11/13 at 7:13pm', type: 'delivery', cost: 27.99, pizzas: ['pepperoni', 'margherita'] },
-        // { name: 'Josie', orderTime: '11/13 at 6:29pm', type: 'pickup', cost: 21.99, pizzas: ['supreme', 'mushroom'] }
-        // uncomment these ^ two placeholder lines, and comment 'orders', above them, to see what data would look like
-    ];
+    const rows = orders;
+        //todo leaving this placeholder data here for possible testing purposes later:
+        // [{ 
+        //     name: 'Annabel', 
+        //     orderTime: '11/13 at 7:13pm', 
+        //     type: 'delivery', 
+        //     cost: 27.99, 
+        //     pizzas: [ 
+        //         {id: 1, quantity: 1}, 
+        //         {id: 5, quantity: 1} 
+        //     ] },
+        // { name: 'Josie', orderTime: '11/13 at 6:29pm', type: 'pickup', cost: 21.99, pizzas: [ {id: 2, quantity: 1}, {id: 3, quantity: 1}, {id: 4, quantity: 1}  ] } ];
 
     return (
         <TableContainer component={Paper}>
@@ -40,6 +46,7 @@ function DataTable() {
             </TableRow>
             </TableHead>
             <TableBody>
+                {console.log('rows:', rows)}
             {rows.map((row) => (
                 <Row key={row.name} row={row} />
             ))}
@@ -55,7 +62,7 @@ function Row(props) {
 
     const { row } = props;
     const [open, setOpen] = React.useState(false);
-  
+
     return (
       <React.Fragment>
         <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
@@ -82,10 +89,10 @@ function Row(props) {
                 <h4 align="center">Pizzas Ordered</h4>
                 <Table size="small" aria-label="purchases">
                   <TableBody>
-                    {row.pizzas.map((pizzaRow) => (
-                      <TableRow key={pizzaRow.date}>
-                        <TableCell align="center">{pizzaRow}</TableCell>
-                      </TableRow>
+                    {row.pizzas.map( (pizzah) => (
+                    <TableRow key={pizzah.id}>
+                        <TableCell align="center">ID:{pizzah.id} | Quantity:{pizzah.quantity}</TableCell>
+                    </TableRow>
                     ))}
                   </TableBody>
                 </Table>
