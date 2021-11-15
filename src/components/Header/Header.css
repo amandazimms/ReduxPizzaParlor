@@ -2,7 +2,7 @@
   text-align: center;
 } */
 
-/* .App-header {
+.header {
   background-color: rgba(17, 41, 179, 0.982);
   height: 70px;
   padding: 20px;
@@ -10,6 +10,10 @@
   color: white;
 }
 
-.App-title {
+.header-title {
+  font-size: 2em;
+}
+
+/* .header-checkout {
   font-size: 2em;
 } */

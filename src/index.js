@@ -14,12 +14,20 @@ const customer = ( state=[], action ) =>{
     }
     return state; //<------THIS IS VERY IMPORTANT. DON'T FORGET IT!!
   }
-
+// pizza reducer
+const pizza = ( state= 35.98, action )=>{
+  if( action.type === 'GET_ORDER_TOTAL' ){
+    console.log( '------->GET_ORDER_TOTAL' );
+    return state;
+  }
+  return state;
+}
 // a store
 const storeInstance = createStore(
     combineReducers(
       {
-        customer
+        customer,
+        pizza
       }
     ),
     applyMiddleware(
