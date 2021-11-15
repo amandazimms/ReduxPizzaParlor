@@ -1,7 +1,3 @@
-/* .App {
-  text-align: center;
-} */
-
 .header {
   background-color: rgba(17, 41, 179, 0.982);
   height: 70px;
@@ -13,7 +9,3 @@
 .header-title {
   font-size: 2em;
 }
-
-/* .header-checkout {
-  font-size: 2em;
-} */
