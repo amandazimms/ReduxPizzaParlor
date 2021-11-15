@@ -1,11 +1,10 @@
 import React from 'react';
+import { useState } from "react";
 import {useSelector, useDispatch} from 'react-redux';
-import axios from 'axios';
-import './Header.css';
-import { Grid, Button } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import { makeStyles } from "@material-ui/core/styles";
+import './Header.css';
 
 const useStyles = makeStyles({
   cartIcon: {
@@ -23,23 +22,22 @@ const useStyles = makeStyles({
 
 function Header( props ) {
   const[ headerType, setHeaderType] = useState( props.headerType )
-
+  //TESTING PURPOSES ONLY since I don't know what the pizza
+  //store is called 
   //Get the pizza total each time the header is rendered to the DOM
   const pizzaTotal = useSelector( store=>store.pizza );
-  // we want to be able to dispatch to top of hierarchy
-  const dispatch = useDispatch();
   const classes = useStyles();
 
+function HideCartInfo() {
   return (
-    <div className='header'>
-      <Grid container>
+    <>
+    </>
+    )  
+}
 
-        <Grid item xs={5}>
-            <h2 className='header-title'>Prime Pizza</h2>
-        </Grid>
-
-        <Grid item xs={3} />  
-
+function ShowCartInfo() {
+  return (
+  <>
         <Grid item xs={1}
               id={'shopping-cart-icon'}
               className={classes.cartIcon}>
@@ -49,8 +47,32 @@ function Header( props ) {
         <Grid item xs={3}
               id={'shopping-cart-total'}
               className={classes.cartTotal}>
-            <p>Total: $</p><p>{pizzaTotal}</p>
-        </Grid>      
+              <><p>Total: $</p><p>{pizzaTotal}</p></>
+        </Grid>  
+  </>
+  )
+}
+
+  return (
+    <div className='header'>
+      <Grid container>
+
+        <Grid item xs={5}>
+          { headerType === 'ADMIN' ? (
+            <h2 className='header-title'>Prime Pizza Orders</h2>
+          ) : (
+            <h2 className='header-title'>Prime Pizza</h2>
+          )}
+        </Grid>
+
+        <Grid item xs={3} />  
+
+        { headerType === 'ORDER' || headerType === 'CUSTOMER' ? (
+          <ShowCartInfo />
+        ) : (
+          <HideCartInfo />
+        )}
+         
       </Grid>
     </div>
   );

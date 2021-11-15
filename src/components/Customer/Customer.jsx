@@ -37,7 +37,7 @@ function Customer ( props ){
 
   return (
     <div>
-        <Header headerType="customer" />
+        <Header headerType="CUSTOMER" />
         <h2 id="customerTitle">Step 2: Customer Information</h2>
         {/* <p> props: { JSON.stringify( customer ) } </p> */}
         <div class="customer-input"></div>
