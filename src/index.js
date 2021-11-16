@@ -8,15 +8,11 @@ import logger from 'redux-logger';
 import axios from 'axios';
 
 const pizzas =  (state = [], action) => {
-    if ( action.type === 'GET' ){
-      return [...state, action.payload];
-    }
+  if (action.type === 'ADD_PIZZAS'){
+    return [...state, action.payload];
+  }
 
-    if (action.type === 'ADD_PIZZAS'){
-      return [...state, action.payload];
-    }
-
-    return state;
+  return state;
 }
 
 const orders =  (state = [], action) => {
