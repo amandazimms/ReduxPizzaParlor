@@ -24,18 +24,8 @@ function DataTable() {
 
     useEffect(()=>{
       getOrders();
-      getBLA();
     }, []);
 
-    const getBLA = () => {
-        axios.get('/api/order').then ( ( response )=>{
-          dispatch({type: 'GET', payload: response.data});
-          console.log(response.data);
-    }).catch( ( err )=>{
-        console.log( err );
-        alert( 'problem!' );
-      }) 
-    } 
 
     const getOrders = () => {
       axios.get('/api/order').then ( ( response )=>{
@@ -59,14 +49,19 @@ function DataTable() {
           //pizzas: findPizzasForOrder(order.id)
           pizzas: [{id: 0, quantity: 0},{id: 0,quantity: 0}] //<-placeholders to use if above line not working
         })
+        findPizzasForOrder(order.id);
       }
       setRows(formattedOrders);
     }
 
     function findPizzasForOrder(orderId){
-       axios.get('/api/order').then ( ( response )=>{
-        dispatch({type: 'SET_ORDERS', payload: response.data});
-        return formatOrders(response.data);
+       axios.get('/api/pizza').then ( ( response )=>{
+        dispatch({type: 'SET_PIZZAS', payload: response.data});
+        const pizzaMenu = response.data; //this is a list of all the pizza type objects. we'll use their IDs soon
+
+        //need to do a similar dispatch to get get line item info- CJ can help set up?
+        //see more comments a few lines later...
+        //todo left off 
       }).catch( ( err )=>{
         console.log( err );
         alert( 'problem!' );
@@ -76,10 +71,9 @@ function DataTable() {
       //add it to an array pizzasIDsInThisOrder.
       //so now we'll have the IDs but not the names of the pizzas. 
       //for that we need to sort through the pizza table and find the matching IDs.
-    }
 
-    //need to repeat this ^ with pizzas, to get the pizzas from the db.
-    //compare the pizza ids in the orders table to the store.pizzas pizzas to get the actual names of the pies
+      //compare the pizza ids in the orders table to the store.pizzas pizzas to get the actual names of the pies
+    }
 
     return (
         <TableContainer component={Paper}>

@@ -8,8 +8,7 @@ import logger from 'redux-logger';
 import axios from 'axios';
 
 const pizzas =  (state = [], action) => {
-    if ( action.type === 'GET' ){ //todo could be important to change this to GET_PIZZA - else it may conflict with GET in const orders below once they are combined
-      console.log('get pizza');
+    if ( action.type === 'GET_PIZZAS' ){
       return [...state, action.payload];
     }
 
@@ -25,10 +24,10 @@ const orders =  (state = [], action) => {
       return [...state, action.payload];
   }
 
-  if (action.type === 'POST'){
+  if (action.type === 'POST_ORDERS'){
     state = [...state, action.payload]
     axios.post(`/api/order`, [...state, action.payload]).then (( response )=>{
-      console.log('IN POST: ', state);
+      console.log('IN POST orders: ', state);
       state = [];
       // trying to figure out what other calls we want here too
     }).catch( ( err )=>{
@@ -37,22 +36,28 @@ const orders =  (state = [], action) => {
     })
   }
 
-  if (action.type === 'SET_ORDERS'){
-    return [...state, action.payload];
-  }
-
-
-  //v DO NOT DELETE THIS AFTER ALL v
-  if ( action.type === 'GET' ){
-    console.log('get orders');
+  if ( action.type === 'GET_ORDERS' ){
     axios.get('/api/order').then ( ( response )=>{
-        console.log('In Get:', response.data);
+        console.log('In Get orders:', response.data);
         return [...state, response.data];
     }).catch( ( err )=>{
         console.log( err );
         alert( 'problem!' );
     }) 
-  }
+}
+//todo can remove 'annabel' and 'josie' placeholder/testing data once Admin successfully displays DB orders on DOM
+// { name: 'Annabel', 
+// orderTime: '11/13 at 7:13pm', 
+// type: 'delivery', 
+// cost: 27.99, 
+// pizzas: [ 
+//     {id: 1, quantity: 1}, 
+//     {id: 5, quantity: 1} 
+// ] },
+// { name: 'Josie', orderTime: '11/13 at 6:29pm', type: 'pickup', cost: 21.99, pizzas: [ {id: 2, quantity: 1}, {id: 3, quantity: 1}, {id: 4, quantity: 1}  ] }
+
+// ], action) => {
+// return state;
   return state;
 }
 
