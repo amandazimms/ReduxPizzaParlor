@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from "react";
-import {useSelector, useDispatch} from 'react-redux';
+import {useSelector} from 'react-redux';
 import { Grid } from '@material-ui/core';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { makeStyles } from "@material-ui/core/styles";
@@ -25,7 +25,7 @@ function Header( props ) {
   //TESTING PURPOSES ONLY since I don't know what the pizza
   //store is called 
   //Get the pizza total each time the header is rendered to the DOM
-  const pizzaTotal = useSelector( store=>store.pizza );
+  const pizzaTotal = useSelector( store=>store.pizzas );
   const classes = useStyles();
 
 function HideCartInfo() {

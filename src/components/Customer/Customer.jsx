@@ -6,18 +6,17 @@ import { FormControl, FormLabel, RadioGroup, Radio, FormControlLabel } from '@ma
 import { makeStyles } from "@material-ui/core/styles";
 import Header from '../Header/Header'
 import './Customer.css';
+import Checkout from '../Checkout/Checkout.jsx';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
     input: {
       marginLeft: "25px"
-    //   marginBottom: "15px"
-    //   backgroundColor: "grey"
     }
   }); 
 
 function Customer ( props ){
     //reducer "stuff"
-    const customer = useSelector( store=>store.customer );
     const dispatch = useDispatch();
     const classes = useStyles();
  
@@ -39,7 +38,7 @@ function Customer ( props ){
     <div>
         <Header headerType="CUSTOMER" />
         <h2 id="customerTitle">Step 2: Customer Information</h2>
-        {/* <p> props: { JSON.stringify( customer ) } </p> */}
+        <p> props: { JSON.stringify( customer ) } </p>
         <div class="customer-input"></div>
         <Grid container>
             <Grid item xs={3}>
@@ -111,10 +110,11 @@ function Customer ( props ){
                 {/* Empty space for first 6 columns of 12-column row */}
             </Grid>
             <Grid item xs={2}>
-            <Button id="add-customer"
-                    size="large" 
-                    variant="contained" 
-                    onClick={ ()=>dispatch( { type: 'ADD_CUSTOMER',  payload: { newCustomer } } ) }>Next   
+                <Button id="add-customer"
+                        size="large" 
+                        variant="contained" 
+                        onClick={ ()=>dispatch( { type: 'ADD_CUSTOMER',  payload: { newCustomer } } ) }>
+                        <Link to="/checkout">Next</Link>
                 </Button>
             </Grid>
       </Grid>
