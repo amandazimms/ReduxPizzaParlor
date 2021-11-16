@@ -8,7 +8,7 @@ import logger from 'redux-logger';
 import axios from 'axios';
 
 const pizzas =  (state = [], action) => {
-    if ( action.type === 'GET' ){
+    if ( action.type === 'GET_PIZZAS' ){
       return [...state, action.payload];
     }
 
@@ -24,10 +24,10 @@ const orders =  (state = [], action) => {
       return [...state, action.payload];
   }
 
-  if (action.type === 'POST'){
+  if (action.type === 'POST_ORDERS'){
     state = [...state, action.payload]
     axios.post(`/api/order`, [...state, action.payload]).then (( response )=>{
-      console.log('IN POST: ', state);
+      console.log('IN POST orders: ', state);
       state = [];
       // trying to figure out what other calls we want here too
     }).catch( ( err )=>{
@@ -36,9 +36,9 @@ const orders =  (state = [], action) => {
     })
   }
 
-  if ( action.type === 'GET' ){
+  if ( action.type === 'GET_ORDERS' ){
     axios.get('/api/order').then ( ( response )=>{
-        console.log('In Get:', response.data);
+        console.log('In Get orders:', response.data);
         return [...state, response.data];
     }).catch( ( err )=>{
         console.log( err );
