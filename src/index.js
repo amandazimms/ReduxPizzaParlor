@@ -15,8 +15,7 @@ const pizzas =  (state = [], action) => {
     if (action.type === 'ADD_PIZZAS'){
       return [...state, action.payload];
     }
-
-    return state;
+  return state;
 }
 
 const orders =  (state = [], action) => {
