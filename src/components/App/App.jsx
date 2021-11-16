@@ -17,7 +17,6 @@ function App() {
   useEffect(()=>{
     getPizzaList();
     console.log( 'component loaded' );
-    getPizzas();
   }, [])
 
   const getPizzaList=()=>{
