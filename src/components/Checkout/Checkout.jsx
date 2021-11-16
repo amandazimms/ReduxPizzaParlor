@@ -34,7 +34,8 @@ function Checkout( props ){
 
     const handleCloseAgree = () => {
       console.log( 'inhandleCloseAgree' );
-          //so if the user selects OK, it sends the POST dispatch with no payload AND routes the
+      //()=>dispatch({ type: 'POST'});
+      //so if the user selects OK, it sends the POST dispatch with no payload AND routes the
       //user back to the homepage, which I'm not entirely sure how to
       //format in a function as apposed to a link on the DOM
     }
