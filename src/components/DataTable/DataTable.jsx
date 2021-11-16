@@ -24,12 +24,21 @@ function DataTable() {
 
     useEffect(()=>{
       getOrders();
-      //setRows([{ name: 'Annabel', orderTime: '11/13 at 7:13pm', type: 'delivery', cost: 27.99, pizzas: [{id: 1, quantity: 1}, {id: 5, quantity: 1}]},{ name: 'Annabel', orderTime: '11/13 at 7:13pm', type: 'delivery', cost: 27.99, pizzas: [{id: 1, quantity: 1}, {id: 5, quantity: 1}]}] );
+      getBLA();
     }, []);
+
+    const getBLA = () => {
+        axios.get('/api/order').then ( ( response )=>{
+          dispatch({type: 'GET', payload: response.data});
+          console.log(response.data);
+    }).catch( ( err )=>{
+        console.log( err );
+        alert( 'problem!' );
+      }) 
+    } 
 
     const getOrders = () => {
       axios.get('/api/order').then ( ( response )=>{
-        console.log('getOrders response.data:', response.data);
         dispatch({type: 'SET_ORDERS', payload: response.data});
         return formatOrders(response.data);
       }).catch( ( err )=>{
@@ -47,15 +56,21 @@ function DataTable() {
           orderTime: order.time,
           type: order.type,
           cost: '$'+order.total,
-          pizzas: [{id: 0, quantity: 0},{id: 0,quantity: 0}]//<-placeholders. change to findPizzasForOrder(order.id)
+          //pizzas: findPizzasForOrder(order.id)
+          pizzas: [{id: 0, quantity: 0},{id: 0,quantity: 0}] //<-placeholders to use if above line not working
         })
       }
-      //setRows(orders);      
-      console.log('formattedOrders:', formattedOrders);
       setRows(formattedOrders);
     }
 
     function findPizzasForOrder(orderId){
+       axios.get('/api/order').then ( ( response )=>{
+        dispatch({type: 'SET_ORDERS', payload: response.data});
+        return formatOrders(response.data);
+      }).catch( ( err )=>{
+        console.log( err );
+        alert( 'problem!' );
+      }) 
       //helper function that will sort through the line_items table
       //for any where the order_id matches our orderId parameter, 
       //add it to an array pizzasIDsInThisOrder.
@@ -76,7 +91,7 @@ function DataTable() {
                 <TableCell/>
                 {/* ^ empty cell to hold place for arrows beneath, which require no title */}
                 <TableCell><h3>Name</h3></TableCell>
-                <TableCell align="right"><h3>{JSON.stringify(orders)} Time Order Placed</h3></TableCell>
+                <TableCell align="right"><h3>Time Order Placed</h3></TableCell>
                 <TableCell align="right"><h3>Type</h3></TableCell>
                 <TableCell align="right"><h3>Cost</h3></TableCell>
             </TableRow>

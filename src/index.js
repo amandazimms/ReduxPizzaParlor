@@ -8,7 +8,8 @@ import logger from 'redux-logger';
 import axios from 'axios';
 
 const pizzas =  (state = [], action) => {
-    if ( action.type === 'GET' ){
+    if ( action.type === 'GET' ){ //todo could be important to change this to GET_PIZZA - else it may conflict with GET in const orders below once they are combined
+      console.log('get pizza');
       return [...state, action.payload];
     }
 
@@ -41,8 +42,9 @@ const orders =  (state = [], action) => {
   }
 
 
-  //v THIS IS GOING AWAY v
+  //v DO NOT DELETE THIS AFTER ALL v
   if ( action.type === 'GET' ){
+    console.log('get orders');
     axios.get('/api/order').then ( ( response )=>{
         console.log('In Get:', response.data);
         return [...state, response.data];
