@@ -16,12 +16,27 @@ function App() {
   }, []);
 
   const addCustomer = () => {
-    dispatch({type: 'ADD_CUSTOMER', payload:{name: 'CJ Barnes', city:'Minneapolis'}});
+    let orderToSend = {
+      //add order Info here
+    }
+    
+    axios.post(`/api/order`, orderToSend).then (( response )=>{
+      console.log('IN POST: ', orderToSend);
+      dispatch({type: 'ADD_CUSTOMER', payload: orderToSend});
+    }).catch( ( err )=>{
+      console.log( err );
+      alert( 'problem!' );
+    })
   }
 
   const getPizzas = () =>{
-    dispatch( { type:'GET' } );
-    console.log(pizzas);
+    axios.get('/api/pizza').then ( ( response )=>{
+      console.log('In Get:', response.data);
+      dispatch({type: 'GET', payload: response.data});
+  }).catch( ( err )=>{
+      console.log( err );
+      alert( 'problem!' );
+  }) 
   }
   
   return (
@@ -30,7 +45,7 @@ function App() {
         <h1 className='App-title'>Prime Pizza</h1>
       </header>
       <button onClick={addCustomer}>Test Add Customer</button>
-      <p>{JSON.stringify(orders)}</p>
+      <p>{JSON.stringify(pizzas)}</p>
       <img src='images/pizza_photo.png' />
       <p>Pizza is great.</p>
     </div>

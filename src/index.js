@@ -9,17 +9,13 @@ import axios from 'axios';
 
 const pizzas =  (state = [], action) => {
     if ( action.type === 'GET' ){
-        axios.get('/api/pizza').then ( ( response )=>{
-            console.log('In Get:', response.data);
-            return [...state, response.data];
-        }).catch( ( err )=>{
-            console.log( err );
-            alert( 'problem!' );
-        }) 
+      return [...state, action.payload];
     }
+
     if (action.type === 'ADD_PIZZAS'){
       return [...state, action.payload];
     }
+
     return state;
 }
 
@@ -27,6 +23,7 @@ const orders =  (state = [], action) => {
   if ( action.type === 'ADD_CUSTOMER' ){
       return [...state, action.payload];
   }
+
   if (action.type === 'POST'){
     state = [...state, action.payload]
     axios.post(`/api/order`, [...state, action.payload]).then (( response )=>{
@@ -38,6 +35,16 @@ const orders =  (state = [], action) => {
       alert( 'problem!' );
     })
   }
+
+  if ( action.type === 'GET' ){
+    axios.get('/api/order').then ( ( response )=>{
+        console.log('In Get:', response.data);
+        return [...state, response.data];
+    }).catch( ( err )=>{
+        console.log( err );
+        alert( 'problem!' );
+    }) 
+}
   return state;
 }
 
