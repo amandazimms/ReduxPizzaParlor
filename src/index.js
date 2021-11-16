@@ -11,6 +11,9 @@ const pizzas =  (state = [], action) => {
     if ( action.type === 'GET_PIZZAS' ){
       return [...state, action.payload];
     }
+    if ( action.type === 'SET_PIZZAS' ){
+      return [action.payload];
+    }
 
     if (action.type === 'ADD_PIZZAS'){
       return [...state, action.payload];
@@ -47,12 +50,20 @@ const orders =  (state = [], action) => {
   return state;
 }
 
+const lineItems =  (state = [], action) => {
+
+  if ( action.type === 'SET_LINE_ITEMS' ){
+    return [action.payload];
+  }
+  return state; //<--------------important!
+}
 // a store
 const storeInstance = createStore(
     combineReducers(
       {
         pizzas,
-        orders
+        orders,
+        lineItems
       }
     ),
     applyMiddleware(

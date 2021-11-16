@@ -58,7 +58,7 @@ function DataTable() {
        axios.get('/api/pizza').then ( ( response )=>{
         dispatch({type: 'SET_PIZZAS', payload: response.data});
         const pizzaMenu = response.data; //this is a list of all the pizza type objects. we'll use their IDs soon
-
+        console.log('pizzaMenu:', pizzaMenu);
         //need to do a similar dispatch to get get line item info- CJ can help set up?
         //see more comments a few lines later...
         //todo left off 
@@ -66,6 +66,20 @@ function DataTable() {
         console.log( err );
         alert( 'problem!' );
       }) 
+
+      axios.get('/api/lineItem').then ( ( response )=>{
+        dispatch({type: 'SET_LINE_ITEMS', payload: response.data});
+        const lineItems = response.data; //this is a list of all the pizza type objects. we'll use their IDs soon
+        console.log('lineItems:', lineItems);
+        //need to do a similar dispatch to get get line item info- CJ can help set up?
+        //see more comments a few lines later...
+        //todo left off 
+      }).catch( ( err )=>{
+        console.log( err );
+        alert( 'problem!' );
+      }) 
+
+
       //helper function that will sort through the line_items table
       //for any where the order_id matches our orderId parameter, 
       //add it to an array pizzasIDsInThisOrder.
