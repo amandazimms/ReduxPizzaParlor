@@ -1,0 +1,11 @@
+.header {
+  background-color: rgba(17, 41, 179, 0.982);
+  height: 70px;
+  padding: 20px;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.header-title {
+  font-size: 2em;
+}
