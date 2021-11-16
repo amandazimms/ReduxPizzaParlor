@@ -1,26 +1,24 @@
 import { useState } from "react";
-// import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 // import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Typography, Grid, Container, Box, Button, Table, TableHead, TableBody, TableCell, TableContainer,
 TableRow, Paper } from '@material-ui/core';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
+import Header from '../Header/Header';
 
 function Checkout( props ){
 
-    function createData(name, cost) { 
-        return { name, cost };
-      }
+    // function createData(name, cost) { 
+    //     return { name, cost };
+    //   }
       
-      const rows = [
-        createData('Onamonapizza', 14.99), //store.pizza.name and cost will be used here instead
-        createData('Pepperoni', 15.99), //do i need a listItem component if I don't need any functionality in my table?
-      ];
+    const rows = pizzas;
     // const[ name, setName ]=useState( null );
 
-    // const pizza = useSelector(store => store.pizza);
-    // const order = useSelector(store => store.order);
+    const pizzas = useSelector(store => store.pizzas);
+    const orders = useSelector(store => store.orders);
 
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
     const [open, setOpen] = useState(false);
 
@@ -32,25 +30,35 @@ function Checkout( props ){
       setOpen(false);
     };
 
+    //I need a new object to send to the server since I'm not passing it through index.js
+    //I need a function to set the object when the user clicks agree
+    const[ placeOrder, setPlaceOrder ]=useState( {
+      
+    } );
+
     const handleCloseAgree = () => {
       console.log( 'inhandleCloseAgree' );
-      //()=>dispatch({ type: 'POST'});
-      //so if the user selects OK, it sends the POST dispatch with no payload AND routes the
-      //user back to the homepage, which I'm not entirely sure how to
+
+      //axios call to server here with the placeOrder object
+      //i can ignore the index.js altogether except for the 'EMPTY' dispatch
+      //routes the user back to the homepage, which I'm not entirely sure how to
       //format in a function as apposed to a link on the DOM
+       //  ()=>dispatch({ type: 'EMPTY' });
     }
 
 
     return(
-      <Container><Typography variant="h2">Step 3: Checkout</Typography>
+      <Container>
+      <Header />
+      <Typography variant="h2">Step 3: Checkout</Typography>
         <Grid container spacing={2} component={Paper}>
 
           <Grid item xs={3}>
             <Box p={3}>
               <Paper>
-                <Typography variant="h5">order.name</Typography>
-                <Typography variant="h5">order.street_address</Typography>
-                <Typography variant="h5">order.city, order.zip</Typography>
+                <Typography variant="h5">orders.customerName</Typography>
+                <Typography variant="h5">orders.streetAddress</Typography>
+                <Typography variant="h5">orders.city, orders.zip</Typography>
               </Paper>
             </Box>
           </Grid>
@@ -58,7 +66,7 @@ function Checkout( props ){
           <Grid item xs={3}>
             <Box p={3}>
               <Paper>
-                <Typography variant="h5">order.type</Typography>
+                <Typography variant="h5">orders.type?</Typography>
               </Paper>
             </Box>
           </Grid>
@@ -77,7 +85,7 @@ function Checkout( props ){
                   {rows.map((row) => (
                     <TableRow>
                       <TableCell><Typography variant="subtitle1">{row.name}</Typography></TableCell>
-                      <TableCell align="right"><Typography variant="subtitle1">{row.cost}</Typography></TableCell>
+                      <TableCell align="right"><Typography variant="subtitle1">{row.price}</Typography></TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -89,7 +97,7 @@ function Checkout( props ){
           <Grid item xs={8} />
           <Grid item xs={4}>
             <Box p={3}>
-              <Paper><Typography variant="h4">Total: order.total</Typography></Paper>
+              <Paper><Typography variant="h4">Total: pizzas.total</Typography></Paper>
             </Box>
           </Grid>
 
