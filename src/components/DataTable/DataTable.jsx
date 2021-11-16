@@ -17,6 +17,10 @@ import {useSelector} from 'react-redux';
 
 //DataTable is a sleek MUI collapsible table
 function DataTable() {
+  //on component load: 
+  //dispatch type: "GET_ORDERS"
+  //store the results in store.orders
+  
     const orders = useSelector(store=> store.orders);
 
     const rows = orders;
