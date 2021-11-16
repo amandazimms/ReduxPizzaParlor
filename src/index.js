@@ -37,7 +37,6 @@ const orders =  (state = [], action) => {
   }
 
   if (action.type === 'SET_ORDERS'){
-    console.log('in index set orders');
     return [...state, action.payload];
   }
 

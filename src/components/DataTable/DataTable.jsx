@@ -20,18 +20,17 @@ import axios from 'axios';
 function DataTable() {
     const dispatch = useDispatch();
     const orders = useSelector( store=>store.orders );
-    let [rows, setRows]=useState([]);
+    const [rows, setRows]=useState([]);
 
     useEffect(()=>{
       getOrders();
       //setRows([{ name: 'Annabel', orderTime: '11/13 at 7:13pm', type: 'delivery', cost: 27.99, pizzas: [{id: 1, quantity: 1}, {id: 5, quantity: 1}]},{ name: 'Annabel', orderTime: '11/13 at 7:13pm', type: 'delivery', cost: 27.99, pizzas: [{id: 1, quantity: 1}, {id: 5, quantity: 1}]}] );
-      console.log('--------------->rows:', rows); 
+    }, []);
 
     const getOrders = () => {
       axios.get('/api/order').then ( ( response )=>{
         console.log('getOrders response.data:', response.data);
         dispatch({type: 'SET_ORDERS', payload: response.data});
-        console.log('in dt after dispatch');
         return formatOrders(response.data);
       }).catch( ( err )=>{
         console.log( err );
@@ -53,7 +52,7 @@ function DataTable() {
       }
       //setRows(orders);      
       console.log('formattedOrders:', formattedOrders);
-      return formattedOrders; 
+      setRows(formattedOrders);
     }
 
     function findPizzasForOrder(orderId){
