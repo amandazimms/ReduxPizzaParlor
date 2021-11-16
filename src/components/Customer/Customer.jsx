@@ -17,7 +17,6 @@ const useStyles = makeStyles({
 
 function Customer ( props ){
     //reducer "stuff"
-    const customer = useSelector( store=>store.customer );
     const dispatch = useDispatch();
     const classes = useStyles();
  
@@ -39,7 +38,7 @@ function Customer ( props ){
     <div>
         <Header headerType="CUSTOMER" />
         <h2 id="customerTitle">Step 2: Customer Information</h2>
-        {/* <p> props: { JSON.stringify( customer ) } </p> */}
+        <p> props: { JSON.stringify( customer ) } </p>
         <div class="customer-input"></div>
         <Grid container>
             <Grid item xs={3}>
@@ -111,18 +110,12 @@ function Customer ( props ){
                 {/* Empty space for first 6 columns of 12-column row */}
             </Grid>
             <Grid item xs={2}>
-            <BrowserRouter>
                 <Button id="add-customer"
                         size="large" 
                         variant="contained" 
                         onClick={ ()=>dispatch( { type: 'ADD_CUSTOMER',  payload: { newCustomer } } ) }>
                         <Link to="/checkout">Next</Link>
                 </Button>
-                
-                <Routes>
-                    <Route path="/checkout" element={ <Checkout/> }></Route>
-                </Routes>
-            </BrowserRouter>
             </Grid>
       </Grid>
     </div>
