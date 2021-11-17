@@ -4,7 +4,7 @@ CREATE TABLE "pizza" (
 	"description" VARCHAR(1000) NOT NULL,
 	"price" NUMERIC (20, 2) NOT NULL,
 	"image_path" VARCHAR(1000) NOT NULL
-);images/another_little_pizza_my_heart.jpg
+);
 
 INSERT INTO "pizza" ("name", "description", "price", "image_path")
 VALUES ('Tomato Soup','If you like pizza, but you hate the toppings, the cheese, and the crust, you''ll love this!',12.99,'images/tomato_soup.jpg'),
