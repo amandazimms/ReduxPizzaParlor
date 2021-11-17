@@ -16,6 +16,16 @@ const pizzas =  (state = [], action) => {
       return [...state, action.payload];
     }
 
+    if (action.type === 'REMOVE_PIZZAS'){
+      let array = [...state];
+      for (let i=0; i<array.length; i++){
+        if (array[i].cartPizzaID === action.payload.cartPizzaID){
+          array.splice(i,1);
+          return array;
+        }
+      }
+      return [...state, action.payload]; 
+    }
     return state;
 }
 
