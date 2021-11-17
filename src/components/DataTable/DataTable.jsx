@@ -18,75 +18,109 @@ import axios from 'axios';
 
 //DataTable is a sleek MUI collapsible table
 function DataTable() {
-    const dispatch = useDispatch();
+  //MY QUESTIONS FOR DEV:
+
+  //After rewatching the video from last class, I was finally able to overcome the "react runs too fast"
+  //  issue and display something on the DOM whose value I had recently set. Thanks, dispatch!
+
+  //now I have something that is a step or two more complex and I can't figure out how to make it work.
+
+  //First I set orders, pizzas, and lineItems with dispatch. 
+  //    I can see that if I console log them or display on DOM, it works - all three are filled arrays with my DB data.
+  
+  //Next I need to manipulate this data - reformat how 'orders' looks for display on DOM, 
+  //    and also do a bit of id-comparing to be able to display the names of pizzas on each order (stretch goal)
+  //    I have the logic for this in formatOrders(), which always/only takes in orders as an argument.
+  
+  //However, it seems that no matter where I try running formatOrders, it runs BEFORE the three stores are updated
+  //    - depending where I try, lineItems and pizzas are usually still empty, and in some cases orders too.
+
+  //So my question is, where/how can I call formatOrders() so that it runs AFTER getLineItems(), getPizzas(), 
+  //    and getOrders() have already run?
+
+
     const orders = useSelector( store=>store.orders );
-    const [rows, setRows]=useState([]);
+    const pizzas = useSelector( store=>store.pizzas );
+    const lineItems = useSelector( store=>store.lineItems );
+
+    const [rows, setRows]=useState([]); //orders get stored as 'rows' for the purpose of rendering in the MUI components below
+    const dispatch = useDispatch();
 
     useEffect(()=>{
+      getLineItems();
+      getPizzas(); 
       getOrders();
+      //formatOrders(orders);//<--if this is called here, formatOrders does not get the orders and neither does the DOM
+      //console.log('pizzas:', pizzas, 'orders:', rows, 'lineItems:', lineItems);//<--If I run this log here, they're all empty
     }, []);
 
-
+    const getLineItems = () => {
+      axios.get('/api/lineItem').then ( ( response )=>{
+        dispatch({type: 'SET_LINE_ITEMS', payload: response.data});
+      }).catch( ( err )=>{
+        console.log( err );
+        alert( 'problem!' );
+      }) 
+    }
+    const getPizzas = () => {
+      axios.get('/api/pizza').then ( ( response )=>{
+        dispatch({type: 'SET_PIZZAS', payload: response.data});
+      }).catch( ( err )=>{
+        console.log( err );
+        alert( 'problem!' );
+      }) 
+    }
     const getOrders = () => {
       axios.get('/api/order').then ( ( response )=>{
         dispatch({type: 'SET_ORDERS', payload: response.data});
-        return formatOrders(response.data);
+        formatOrders(response.data);//<--if this is called here (my first instinct), DOM & formatOrders gets the orders, but findPizzasOnOrder starts with empty lineItems and pizzas
       }).catch( ( err )=>{
         console.log( err );
         alert( 'problem!' );
       }) 
     } 
 
-    function formatOrders(orders){
-      let formattedOrders = [];
+    function formatOrders(_orders){
+      //function that takes in orders (from orders store) and formats them the way we need them for display on the admin page
 
-      for(const order of orders){
+      let formattedOrders = [];
+      for(const order of _orders){
         formattedOrders.push({
           name: order.customer_name,
           orderTime: order.time,
           type: order.type,
           cost: '$'+order.total,
           //pizzas: findPizzasForOrder(order.id)
-          pizzas: [{id: 0, quantity: 0},{id: 0,quantity: 0}] //<-placeholders to use if above line not working
+          pizzas: [{id: 0, quantity: 0},{id: 0,quantity: 0}] //<-placeholders because above line not fully functional
         })
-        findPizzasForOrder(order.id);
+        findPizzasOnOrder(order.id);//<---when fully functional, will run this a few lines up instead (where it's now commented), but running now to check and see what's happening
       }
       setRows(formattedOrders);
     }
 
-    function findPizzasForOrder(orderId){
-       axios.get('/api/pizza').then ( ( response )=>{
-        dispatch({type: 'SET_PIZZAS', payload: response.data});
-        const pizzaMenu = response.data; //this is a list of all the pizza type objects. we'll use their IDs soon
-        console.log('pizzaMenu:', pizzaMenu);
-        //need to do a similar dispatch to get get line item info- CJ can help set up?
-        //see more comments a few lines later...
-        //todo left off 
-      }).catch( ( err )=>{
-        console.log( err );
-        alert( 'problem!' );
-      }) 
+    //console.log('pizzas:', pizzas, 'orders:', rows, 'lineItems:', lineItems);//<--this does display with the right data inside each
+    //formatOrders(orders);//<--if this is called here, this causes infinite render loop
 
-      axios.get('/api/lineItem').then ( ( response )=>{
-        dispatch({type: 'SET_LINE_ITEMS', payload: response.data});
-        const lineItems = response.data; //this is a list of all the pizza type objects. we'll use their IDs soon
-        console.log('lineItems:', lineItems);
-        //need to do a similar dispatch to get get line item info- CJ can help set up?
-        //see more comments a few lines later...
-        //todo left off 
-      }).catch( ( err )=>{
-        console.log( err );
-        alert( 'problem!' );
-      }) 
+    function findPizzasOnOrder(orderId){
+      //helper function that takes in an order ID and compares it with the pizzas and lineItems tables 
+      //to ultimately display a list of pizzas belonging to each customer order
 
-
-      //helper function that will sort through the line_items table
-      //for any where the order_id matches our orderId parameter, 
-      //add it to an array pizzasIDsInThisOrder.
-      //so now we'll have the IDs but not the names of the pizzas. 
-      //for that we need to sort through the pizza table and find the matching IDs.
-
-      //compare the pizza ids in the orders table to the store.pizzas pizzas to get the actual names of the pies
+      console.log('line items:', lineItems);//<---this is always empty because we get to this logic before lineItems are set
+      
+      let pizzaIDs = []; //will become array of numbers: the ids of all the pizzas on this order.
+      for(let i=0; i<lineItems.length; i++){
+        console.log('lineItem order ID:',  lineItems[i].order_id, ". our orderID:", orderId);//<--have never gotten this line to run as lineItems is always still empty when I get here
+        if(lineItems[i].order_id === orderId){
+          pizzaIDs.push(lineItems[i].pizza_id);
+        }
+      }
+      let pizzaTitles = []; //will become array of words: the titles of all the pizzas on this order
+      for(let i=0; i<pizzaIDs.length; i++){
+        pizzaTitles.push(pizzas[ pizzaIDs[i] ].name);//todo fix?/don't repeat- this could be a dangerous way if it's possible to remove a pizza table?
+      }
+      
+      console.log('pizzas on order no.', orderId, ':', pizzaTitles);
+      //return pizzaTitles;//<--eventually we will return here, once anything works
     }
 
     return (
