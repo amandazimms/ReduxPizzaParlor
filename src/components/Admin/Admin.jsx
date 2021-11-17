@@ -7,7 +7,7 @@ function Admin( props ){
     return(
         <div>
             <h1>ADMIN</h1>
-            <DataTable/>
+            <DataTable />
         </div>
     )
 }

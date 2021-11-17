@@ -18,61 +18,21 @@ import axios from 'axios';
 
 //DataTable is a sleek MUI collapsible table
 function DataTable() {
-  //MY QUESTIONS FOR DEV:
-
-  //After rewatching the video from last class, I was finally able to overcome the "react runs too fast"
-  //  issue and display something on the DOM whose value I had recently set. Thanks, dispatch!
-
-  //now I have something that is a step or two more complex and I can't figure out how to make it work.
-
-  //First I set orders, pizzas, and lineItems with dispatch. 
-  //    I can see that if I console log them or display on DOM, it works - all three are filled arrays with my DB data.
-  
-  //Next I need to manipulate this data - reformat how 'orders' looks for display on DOM, 
-  //    and also do a bit of id-comparing to be able to display the names of pizzas on each order (stretch goal)
-  //    I have the logic for this in formatOrders(), which always/only takes in orders as an argument.
-  
-  //However, it seems that no matter where I try running formatOrders, it runs BEFORE the three stores are updated
-  //    - depending where I try, lineItems and pizzas are usually still empty, and in some cases orders too.
-
-  //So my question is, where/how can I call formatOrders() so that it runs AFTER getLineItems(), getPizzas(), 
-  //    and getOrders() have already run?
-
-
     const orders = useSelector( store=>store.orders );
-    const pizzas = useSelector( store=>store.pizzas );
-    const lineItems = useSelector( store=>store.lineItems );
+   // const pizzas = useSelector( store=>store.pizzas );
+   // const lineItems = useSelector( store=>store.lineItems );
 
     const [rows, setRows]=useState([]); //orders get stored as 'rows' for the purpose of rendering in the MUI components below
     const dispatch = useDispatch();
 
-    useEffect(()=>{
-      getLineItems();
-      getPizzas(); 
+    useEffect(()=>{ 
       getOrders();
-      //formatOrders(orders);//<--if this is called here, formatOrders does not get the orders and neither does the DOM
-      //console.log('pizzas:', pizzas, 'orders:', rows, 'lineItems:', lineItems);//<--If I run this log here, they're all empty
     }, []);
 
-    const getLineItems = () => {
-      axios.get('/api/lineItem').then ( ( response )=>{
-        dispatch({type: 'SET_LINE_ITEMS', payload: response.data});
-      }).catch( ( err )=>{
-        console.log( err );
-        alert( 'problem!' );
-      }) 
-    }
-    const getPizzas = () => {
-      axios.get('/api/pizza').then ( ( response )=>{
-        dispatch({type: 'SET_PIZZAS', payload: response.data});
-      }).catch( ( err )=>{
-        console.log( err );
-        alert( 'problem!' );
-      }) 
-    }
     const getOrders = () => {
       axios.get('/api/order').then ( ( response )=>{
         dispatch({type: 'SET_ORDERS', payload: response.data});
+        
         formatOrders(response.data);//<--if this is called here (my first instinct), DOM & formatOrders gets the orders, but findPizzasOnOrder starts with empty lineItems and pizzas
       }).catch( ( err )=>{
         console.log( err );
@@ -85,43 +45,20 @@ function DataTable() {
 
       let formattedOrders = [];
       for(const order of _orders){
-        formattedOrders.push({
-          name: order.customer_name,
-          orderTime: order.time,
-          type: order.type,
-          cost: '$'+order.total,
-          //pizzas: findPizzasForOrder(order.id)
-          pizzas: [{id: 0, quantity: 0},{id: 0,quantity: 0}] //<-placeholders because above line not fully functional
-        })
-        findPizzasOnOrder(order.id);//<---when fully functional, will run this a few lines up instead (where it's now commented), but running now to check and see what's happening
+          formattedOrders.push({
+            id: order.id,
+            name: order.customer_name,
+            orderTime: order.time,
+            type: order.type,
+            cost: '$'+order.total,
+            //pizzas: findPizzasOnOrder(order.id)
+            pizzas: [{id: 0, quantity: 0},{id: 0,quantity: 0}] //<-placeholders because above line not fully functional
+          })
+          //findPizzasOnOrder(order.id);
       }
       setRows(formattedOrders);
     }
 
-    //console.log('pizzas:', pizzas, 'orders:', rows, 'lineItems:', lineItems);//<--this does display with the right data inside each
-    //formatOrders(orders);//<--if this is called here, this causes infinite render loop
-
-    function findPizzasOnOrder(orderId){
-      //helper function that takes in an order ID and compares it with the pizzas and lineItems tables 
-      //to ultimately display a list of pizzas belonging to each customer order
-
-      console.log('line items:', lineItems);//<---this is always empty because we get to this logic before lineItems are set
-      
-      let pizzaIDs = []; //will become array of numbers: the ids of all the pizzas on this order.
-      for(let i=0; i<lineItems.length; i++){
-        console.log('lineItem order ID:',  lineItems[i].order_id, ". our orderID:", orderId);//<--have never gotten this line to run as lineItems is always still empty when I get here
-        if(lineItems[i].order_id === orderId){
-          pizzaIDs.push(lineItems[i].pizza_id);
-        }
-      }
-      let pizzaTitles = []; //will become array of words: the titles of all the pizzas on this order
-      for(let i=0; i<pizzaIDs.length; i++){
-        pizzaTitles.push(pizzas[ pizzaIDs[i] ].name);//todo fix?/don't repeat- this could be a dangerous way if it's possible to remove a pizza table?
-      }
-      
-      console.log('pizzas on order no.', orderId, ':', pizzaTitles);
-      //return pizzaTitles;//<--eventually we will return here, once anything works
-    }
 
     return (
         <TableContainer component={Paper}>
@@ -142,7 +79,7 @@ function DataTable() {
             
             {/* Table ROWS */}
             {rows.map((row) => (
-                <Row key={row.name} row={row} />
+                <Row key={row.name} row={row}/>
             ))}
             </TableBody>
         </Table>
@@ -150,12 +87,36 @@ function DataTable() {
     ); 
 }
 
+
 function Row(props) {
     // comes with MUI collapsible table template (altered)
     // helper function that makes MUI rows out of our 'rows' variable
+    const dispatch = useDispatch();
 
     const { row } = props;
     const [open, setOpen] = React.useState(false);
+
+    const dropdownClicked = ()=> {
+      setOpen(!open); //opens or closes the dropdown menu
+    }
+
+    const showOrderDetails = () => {
+      //function that takes in an order ID and makes an axios call to do some SQL joins, 
+      //to ultimately display a list of pizzas belonging to each customer order
+
+      console.log("!", row.id);
+
+      let thisOrdersPizzas = []
+        axios.get(`/api/lineItem/${row.id}`).then ( ( response )=>{
+          dispatch({type: 'SET_LINE_ITEMS', payload: response.data});
+          
+          console.log("this order's pizzas:", response.data);
+        }).catch( ( err )=>{
+          console.log( err );
+        alert( 'problem!' );
+        }) 
+
+    }
 
     return (
       <React.Fragment>
@@ -164,7 +125,7 @@ function Row(props) {
             <IconButton
               aria-label="expand row"
               size="small"
-              onClick={() => setOpen(!open)}
+              onClick={dropdownClicked}
             >
               {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
             </IconButton>
@@ -174,7 +135,9 @@ function Row(props) {
           <TableCell component="th" scope="row">{row.name}</TableCell>
           <TableCell align="right">{row.orderTime}</TableCell>
           <TableCell align="right">{row.type}</TableCell>
-          <TableCell align="right">{row.cost}</TableCell>
+          {/* <TableCell align="right">{row.cost}</TableCell> */}
+           <TableCell align="right"><button onClick={showOrderDetails}>Details</button></TableCell>
+
         </TableRow>
         <TableRow>
 
@@ -188,7 +151,7 @@ function Row(props) {
                     
                     {/* Map through the pizza objects and display their ID and QTY */}
                     {row.pizzas.map( (pizza) => (
-                    <TableRow key={pizza.id}>
+                    <TableRow key={row.id}>
                         <TableCell align="center">ID:{pizza.id} | Quantity:{pizza.quantity}</TableCell>
                     </TableRow>
                     ))}
@@ -210,7 +173,7 @@ function Row(props) {
       name: PropTypes.string.isRequired,
       orderTime: PropTypes.string.isRequired,
       type: PropTypes.string.isRequired,
-      cost: PropTypes.number.isRequired,
+      cost: PropTypes.string.isRequired,
       pizzas: PropTypes.arrayOf(
         PropTypes.shape({
         }),
