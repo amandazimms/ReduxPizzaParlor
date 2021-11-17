@@ -136,7 +136,7 @@ function Checkout( props ){
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            As soon as you click Agree, your order will be placed and hot, tasty pizza will
+            Click Agree: your order will be placed and hot, tasty pizza will
             be on its way to you!
           </DialogContentText>
         </DialogContent>
