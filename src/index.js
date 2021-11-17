@@ -7,19 +7,28 @@ import {Provider} from 'react-redux';
 import logger from 'redux-logger';
 import axios from 'axios';
 
+let cartTotalRaw = 0;
+let cartTotal;
+
 const pizzas =  (state = [], action) => {
     if ( action.type === 'GET' ){
       return [...state, action.payload];
     }
 
     if (action.type === 'ADD_PIZZAS'){
+      cartTotalRaw += Number(action.payload.cartObject.cartPizzaPrice);
+      cartTotal = Number(cartTotalRaw.toFixed(2));
+      console.log('cartTotal:', cartTotal);
       return [...state, action.payload];
     }
 
     if (action.type === 'REMOVE_PIZZAS'){
       let array = [...state];
+      cartTotalRaw -= Number(action.payload.cartObject.cartPizzaPrice);
+      cartTotal = Number(cartTotalRaw.toFixed(2));
+      console.log('cartTotal:', cartTotal);
       for (let i=0; i<array.length; i++){
-        if (array[i].cartPizzaID === action.payload.cartPizzaID){
+        if (array[i].cartObject.cartPizzaID === action.payload.cartObject.cartPizzaID){
           array.splice(i,1);
           return array;
         }

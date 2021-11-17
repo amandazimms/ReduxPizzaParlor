@@ -15,26 +15,31 @@ function PizzaItem( props ){
     const dispatch = useDispatch();
     const[cartButton, setCartButton]=useState(true);
     
-    let cartPizzaID;
+    // let cartPizzaID;
+    let cartObject = {
+        cartPizzaID: 0,
+        cartPizzaPrice: 0
+    }
 
     const toggleCartButton=()=>{
         setCartButton(!cartButton);
     }
 
     const addToCart=()=>{
-        cartPizzaID = props.pizza.id;
+        cartObject.cartPizzaID = props.pizza.id;
+        cartObject.cartPizzaPrice += Number(props.pizza.price);
         dispatch({
             type: 'ADD_PIZZAS',
-            payload: {cartPizzaID}
+            payload: {cartObject}
         })
     }
 
     const removeFromCart=()=>{
-        cartPizzaID = props.pizza.id;
-        console.log('remove cartPizzaID:', cartPizzaID);
+        cartObject.cartPizzaID = props.pizza.id;
+        cartObject.cartPizzaPrice += Number(props.pizza.price);
         dispatch({
             type: 'REMOVE_PIZZAS',
-            payload: {cartPizzaID}
+            payload: {cartObject}
         })
     }
 
