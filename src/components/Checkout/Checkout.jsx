@@ -7,31 +7,30 @@ import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } 
 import Header from '../Header/Header'
 
 function Checkout( props ){
-
-    // function createData(name, cost) { 
-    //     return { name, cost };
-    //   }
-      
-    const rows = pizzas;
     // const[ name, setName ]=useState( null );
 
     const pizzas = useSelector(store => store.pizzas);
     const orders = useSelector(store => store.orders);
 
+    const rows = pizzas;
+    //this is for the map on the DOM, not sure if it's redundant or necessary?
+
     const dispatch = useDispatch();
 
     const [open, setOpen] = useState(false);
+    //this is for the confirmation dialogue, to start it as closed
 
     const handleClickOpen = () => {
       setOpen(true);
+      //this is the function that opens the confirmation dialogue on button click
     };
   
     const handleCloseDisagree = () => {
       setOpen(false);
+      //this closes it again if the user clicks "disagree"
     };
 
-    //I need a new object to send to the server since I'm not passing it through index.js
-    //I need a function to set the object when the user clicks agree
+    //this is a hook to set the object I'm going to send via POST
     const[ placeOrder, setPlaceOrder ]=useState( {
         customer_name: '',
         street_address: '',
@@ -42,10 +41,10 @@ function Checkout( props ){
         selectedPizzas: []
     } );
 
+    //this is the onClick function for the Agree button
     const handleCloseAgree = () => {
       console.log( 'inhandleCloseAgree' );
-      //i need to setPlaceOrder here. not sure how to syntax this right,
-      //use store to set the values of this object
+      //set the value of the object using values from the store
       setPlaceOrder( {
         ...placeOrder, 
         customer_name: orders.customerName,
@@ -56,8 +55,9 @@ function Checkout( props ){
         total: pizzas.total,
         selectedPizzas: pizzas
       });
-      //i think this is a bit off
+      //send to the database via POST
       axios.post( `/api/order`, placeOrder ).then( (response)=>{
+        //send a dispatch with an empty array to empty out the store
         dispatch({ type: 'EMPTY', payload: [] });
       }).catch((err)=>{
          alert('POST Failed');
