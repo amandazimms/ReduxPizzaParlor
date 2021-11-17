@@ -1,10 +1,10 @@
 import { useState } from "react";
 import {useDispatch, useSelector} from 'react-redux';
-// import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import { Typography, Grid, Container, Box, Button, Table, TableHead, TableBody, TableCell, TableContainer,
 TableRow, Paper } from '@material-ui/core';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
-import Header from '../Header/Header';
+import Header from '../Header/Header'
 
 function Checkout( props ){
 
@@ -33,17 +33,36 @@ function Checkout( props ){
     //I need a new object to send to the server since I'm not passing it through index.js
     //I need a function to set the object when the user clicks agree
     const[ placeOrder, setPlaceOrder ]=useState( {
-      
+        customer_name: '',
+        street_address: '',
+        city: '',
+        zip: '',
+        type: '',
+        total: 0,
+        selectedPizzas: []
     } );
 
     const handleCloseAgree = () => {
       console.log( 'inhandleCloseAgree' );
-
-      //axios call to server here with the placeOrder object
-      //i can ignore the index.js altogether except for the 'EMPTY' dispatch
-      //routes the user back to the homepage, which I'm not entirely sure how to
-      //format in a function as apposed to a link on the DOM
-       //  ()=>dispatch({ type: 'EMPTY' });
+      //i need to setPlaceOrder here. not sure how to syntax this right,
+      //use store to set the values of this object
+      setPlaceOrder( {
+        ...placeOrder, 
+        customer_name: orders.customerName,
+        street_address: orders.streetAddress,
+        city: orders.city,
+        zip: orders.zip,
+        type: orders.orderType,
+        total: pizzas.total,
+        selectedPizzas: pizzas
+      });
+      //i think this is a bit off
+      axios.post( `/api/order`, placeOrder ).then( (response)=>{
+        dispatch({ type: 'EMPTY', payload: [] });
+      }).catch((err)=>{
+         alert('POST Failed');
+         console.log(err);
+      });
     }
 
 
@@ -56,9 +75,9 @@ function Checkout( props ){
           <Grid item xs={3}>
             <Box p={3}>
               <Paper>
-                <Typography variant="h5">orders.customerName</Typography>
-                <Typography variant="h5">orders.streetAddress</Typography>
-                <Typography variant="h5">orders.city, orders.zip</Typography>
+                <Typography variant="h5">{orders.customerName}</Typography>
+                <Typography variant="h5">{orders.streetAddress}</Typography>
+                <Typography variant="h5">{orders.city, orders.zip}</Typography>
               </Paper>
             </Box>
           </Grid>
@@ -66,7 +85,7 @@ function Checkout( props ){
           <Grid item xs={3}>
             <Box p={3}>
               <Paper>
-                <Typography variant="h5">orders.type?</Typography>
+                <Typography variant="h5">{orders.orderType}</Typography>
               </Paper>
             </Box>
           </Grid>
@@ -97,7 +116,7 @@ function Checkout( props ){
           <Grid item xs={8} />
           <Grid item xs={4}>
             <Box p={3}>
-              <Paper><Typography variant="h4">Total: pizzas.total</Typography></Paper>
+              <Paper><Typography variant="h4">Total: {pizzas.total}</Typography></Paper>
             </Box>
           </Grid>
 
@@ -123,9 +142,9 @@ function Checkout( props ){
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDisagree}>Disagree</Button>
-          <Button onClick={handleCloseAgree} autoFocus>
+          <Button onClick={handleCloseAgree} autoFocus><Link to="/">
             Agree
-          </Button>
+            </Link></Button>
         </DialogActions>
       </Dialog>
 
