@@ -22,8 +22,6 @@ const useStyles = makeStyles({
 
 function Header( props ) {
   const[ headerType, setHeaderType] = useState( props.headerType )
-  //TESTING PURPOSES ONLY since I don't know what the pizza
-  //store is called 
   //Get the pizza total each time the header is rendered to the DOM
   const pizzaTotal = useSelector( store=>store.pizzas );
   const classes = useStyles();
