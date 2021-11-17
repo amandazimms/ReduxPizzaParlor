@@ -4,6 +4,11 @@ import axios from 'axios';
 import {useDispatch} from 'react-redux'
 import { Typography, Grid, Container, Box, Button, Table, TableHead, TableBody, TableCell, TableContainer,
     TableRow, Paper } from '@material-ui/core';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import { shadows } from '@mui/system';
 
 function PizzaItem( props ){
     // const[ name, setName ]=useState( null );
@@ -22,13 +27,11 @@ function PizzaItem( props ){
             type: 'ADD_PIZZAS',
             payload: {cartPizzaID}
         })
-        console.log('props.pizza.id:', cartPizzaID)
     }
 
     const removeFromCart=()=>{
-        cartPizzaID = props.pizza.id
+        cartPizzaID = props.pizza.id;
         console.log('remove cartPizzaID:', cartPizzaID);
-        // cartToSend.cartPizzaIDs.splice(pizzaIndex, 1);
         dispatch({
             type: 'REMOVE_PIZZAS',
             payload: {cartPizzaID}
@@ -47,15 +50,26 @@ function PizzaItem( props ){
 
     return(
         <div>
-            <h1>{props.pizza.name}</h1>
-            <h3>{props.pizza.description}</h3>
-            <img src={props.pizza.image_path} alt="" />
-            <br></br>
-            {
-                cartButton?
-                <Button onClick={onClickAdd}>Add to cart</Button>:
-                <Button onClick={onClickRemove}>Remove from cart</Button>
-            }
+            <Box sx={{boxShadow: 3}} m={2} pt={1} >
+                <Grid item sx={4} >
+                    <Card sx={{ maxWidth: 400 }}>
+                        <Typography gutterBottom variant="h5" component="div">{props.pizza.name}</Typography>
+                        <CardMedia
+                            component="img"
+                            height="300"
+                            image={props.pizza.image_path}
+                        />
+                        <Typography variant="body2" color="text.secondary">{props.pizza.description}</Typography>
+                        <Typography gutterBottom variant="h5" component="div">${props.pizza.price}</Typography>
+                        <br></br>
+                        {
+                            cartButton?
+                            <Button onClick={onClickAdd}>Add to cart</Button>:
+                            <Button onClick={onClickRemove}>Remove from cart</Button>
+                        }
+                    </Card>
+                </Grid>
+            </Box>
         </div>
     )
 }
