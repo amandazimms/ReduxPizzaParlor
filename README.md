@@ -50,4 +50,4 @@ OUR TEAM IS AMAZING! Thank you to Jen Alexander, CJ Barnes, Amanda Zimmerman, Pe
 
 ## Contacts
 
-<a href="https://www.linkedin.com/in/https://www.linkedin.com/in/miriam-mcnamara/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" /></a>  
+<a href="https://www.linkedin.com/in/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" /></a>  
