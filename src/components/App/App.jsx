@@ -51,8 +51,7 @@ function App() {
   return (
     <div className='App'>
       {/*------->BEGIN change: 
-      Remove <header> and replace with <Header> component */}
-      <Header />      
+      Remove <header> and replace with <Header> component */}     
       {/*
       <header className='App-header'>
         <h1 className='App-title'>Prime Pizza</h1>
@@ -64,13 +63,11 @@ function App() {
             <Route path='/Admin' element={<Admin/>}></Route>
             <Route path='/customer' element={<Customer />}></Route>
             <Route path='/checkout' element={<Checkout />}></Route>
+            <Route path='/' element ={<PizzaList pizzaList={pizzaList}/>}></Route>
 
         </Routes>
       </BrowserRouter>
-      <img src='images/pizza_photo.png' />
-      <p>Pizza is great.</p>
-      <Checkout />
-      <PizzaList pizzaList={pizzaList}/>  
+      
       
     </div>
   );
