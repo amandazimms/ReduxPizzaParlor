@@ -63,6 +63,8 @@ function App() {
              {/* reminder that the Admin page should not be linked, only reachable by visiting /Admin in URL  */}
             <Route path='/Admin' element={<Admin/>}></Route>
             <Route path='/customer' element={<Customer />}></Route>
+            <Route path='/' element={<PizzaList />}></Route>
+            <Route path='/checkout' element={<Checkout />}></Route>
         </Routes>
       </BrowserRouter>
       <img src='images/pizza_photo.png' />

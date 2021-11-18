@@ -1,56 +1,83 @@
 import { useState } from "react";
-// import {useDispatch, useSelector} from 'react-redux';
-// import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import { Typography, Grid, Container, Box, Button, Table, TableHead, TableBody, TableCell, TableContainer,
 TableRow, Paper } from '@material-ui/core';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
+import Header from '../Header/Header'
 
 function Checkout( props ){
-
-    function createData(name, cost) { 
-        return { name, cost };
-      }
-      
-      const rows = [
-        createData('Onamonapizza', 14.99), //store.pizza.name and cost will be used here instead
-        createData('Pepperoni', 15.99), //do i need a listItem component if I don't need any functionality in my table?
-      ];
     // const[ name, setName ]=useState( null );
 
-    // const pizza = useSelector(store => store.pizza);
-    // const order = useSelector(store => store.order);
+    const pizzas = useSelector(store => store.pizzas);
+    const orders = useSelector(store => store.orders);
 
-    // const dispatch = useDispatch();
+    const rows = pizzas;
+    //this is for the map on the DOM, not sure if it's redundant or necessary?
+
+    const dispatch = useDispatch();
 
     const [open, setOpen] = useState(false);
+    //this is for the confirmation dialogue, to start it as closed
 
     const handleClickOpen = () => {
       setOpen(true);
+      //this is the function that opens the confirmation dialogue on button click
     };
   
     const handleCloseDisagree = () => {
       setOpen(false);
+      //this closes it again if the user clicks "disagree"
     };
 
+    //this is a hook to set the object I'm going to send via POST
+    const[ placeOrder, setPlaceOrder ]=useState( {
+        customer_name: '',
+        street_address: '',
+        city: '',
+        zip: '',
+        type: '',
+        total: 0,
+        selectedPizzas: []
+    } );
+
+    //this is the onClick function for the Agree button
     const handleCloseAgree = () => {
       console.log( 'inhandleCloseAgree' );
-      //()=>dispatch({ type: 'POST'});
-      //so if the user selects OK, it sends the POST dispatch with no payload AND routes the
-      //user back to the homepage, which I'm not entirely sure how to
-      //format in a function as apposed to a link on the DOM
+      //set the value of the object using values from the store
+      setPlaceOrder( {
+        ...placeOrder, 
+        customer_name: orders.customerName,
+        street_address: orders.streetAddress,
+        city: orders.city,
+        zip: orders.zip,
+        type: orders.orderType,
+        total: pizzas.total,
+        selectedPizzas: pizzas
+      });
+      //send to the database via POST
+      axios.post( `/api/order`, placeOrder ).then( (response)=>{
+        //send a dispatch with an empty array to empty out the store
+        dispatch({ type: 'EMPTY', payload: [] });
+      }).catch((err)=>{
+         alert('POST Failed');
+         console.log(err);
+      });
     }
 
 
     return(
-      <Container><Typography variant="h2">Step 3: Checkout</Typography>
+      <Container>
+      <Header headerType='CHECKOUT'/>
+      <Typography variant="h2">Step 3: Checkout</Typography>
         <Grid container spacing={2} component={Paper}>
 
           <Grid item xs={3}>
             <Box p={3}>
               <Paper>
-                <Typography variant="h5">order.name</Typography>
-                <Typography variant="h5">order.street_address</Typography>
-                <Typography variant="h5">order.city, order.zip</Typography>
+                <Typography variant="h5">{orders.customerName}</Typography>
+                <Typography variant="h5">{orders.streetAddress}</Typography>
+                <Typography variant="h5">{orders.city, orders.zip}</Typography>
               </Paper>
             </Box>
           </Grid>
@@ -58,7 +85,7 @@ function Checkout( props ){
           <Grid item xs={3}>
             <Box p={3}>
               <Paper>
-                <Typography variant="h5">order.type</Typography>
+                <Typography variant="h5">{orders.orderType}</Typography>
               </Paper>
             </Box>
           </Grid>
@@ -77,7 +104,7 @@ function Checkout( props ){
                   {rows.map((row) => (
                     <TableRow>
                       <TableCell><Typography variant="subtitle1">{row.name}</Typography></TableCell>
-                      <TableCell align="right"><Typography variant="subtitle1">{row.cost}</Typography></TableCell>
+                      <TableCell align="right"><Typography variant="subtitle1">{row.price}</Typography></TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -89,7 +116,7 @@ function Checkout( props ){
           <Grid item xs={8} />
           <Grid item xs={4}>
             <Box p={3}>
-              <Paper><Typography variant="h4">Total: order.total</Typography></Paper>
+              <Paper><Typography variant="h4">Total: {pizzas.total}</Typography></Paper>
             </Box>
           </Grid>
 
@@ -109,15 +136,15 @@ function Checkout( props ){
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            As soon as you click Agree, your order will be placed and hot, tasty pizza will
+            Click Agree: your order will be placed and hot, tasty pizza will
             be on its way to you!
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDisagree}>Disagree</Button>
-          <Button onClick={handleCloseAgree} autoFocus>
+          <Button onClick={handleCloseAgree} autoFocus><Link to="/">
             Agree
-          </Button>
+            </Link></Button>
         </DialogActions>
       </Dialog>
 
