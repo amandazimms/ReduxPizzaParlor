@@ -19,10 +19,11 @@ const pizzas =  (state = [], action) => {
     }
 
     if (action.type === 'ADD_PIZZAS'){
-      cartTotalRaw += Number(action.payload.cartObject.cartPizzaPrice);
+      console.log(action.payload);
+      cartTotalRaw += Number(action.payload.cartPizzaPrice);
       cartTotal = Number(cartTotalRaw.toFixed(2));
       console.log('cartTotal:', cartTotal);
-      return [...state, action.payload];
+      return action.payload;
     }
 
     if (action.type === 'REMOVE_PIZZAS'){

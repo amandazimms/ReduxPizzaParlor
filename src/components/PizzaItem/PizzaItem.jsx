@@ -9,6 +9,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import { shadows } from '@mui/system';
+import { isPropertyAccessExpression } from 'typescript';
 
 function PizzaItem( props ){
     // const[ name, setName ]=useState( null );
@@ -28,10 +29,12 @@ function PizzaItem( props ){
     const addToCart=()=>{
         cartObject.cartPizzaID = props.pizza.id;
         cartObject.cartPizzaPrice += Number(props.pizza.price);
+
         dispatch({
             type: 'ADD_PIZZAS',
-            payload: {cartObject}
+            payload: cartObject
         })
+        
     }
 
     const removeFromCart=()=>{

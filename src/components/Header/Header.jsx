@@ -45,7 +45,7 @@ function ShowCartInfo() {
         <Grid item xs={3}
               id={'shopping-cart-total'}
               className={classes.cartTotal}>
-              <><p>Total: $</p><p>{pizzaTotal}</p></>
+              <><p>Total: $</p><p>{pizzaTotal.cartTotal}</p></>
         </Grid>  
   </>
   )
