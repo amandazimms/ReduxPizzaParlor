@@ -1,7 +1,7 @@
 import React from "react";
 import PizzaItem from "../PizzaItem/PizzaItem";
 import Header from "../Header/Header";
-import { Typography, Grid, Container, Button} from '@material-ui/core';
+import { Typography, Grid, Container, Button } from '@material-ui/core';
 import {Link} from 'react-router-dom';
 
 function PizzaList( props ){

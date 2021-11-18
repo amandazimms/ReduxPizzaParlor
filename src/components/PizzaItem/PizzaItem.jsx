@@ -1,14 +1,10 @@
 import React from 'react';
-import { useEffect, useState } from "react";
-import axios from 'axios';
+import { useState } from "react";
 import {useDispatch} from 'react-redux'
-import { Typography, Grid, Container, Box, Button, Table, TableHead, TableBody, TableCell, TableContainer,
-    TableRow, Paper } from '@material-ui/core';
+import { Typography, Grid, Box, Button } from '@material-ui/core';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import { shadows } from '@mui/system';
+
 function PizzaItem( props ){
     // const[ name, setName ]=useState( null );
     const dispatch = useDispatch();

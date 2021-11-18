@@ -1,13 +1,12 @@
 import { useState } from "react";
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch } from 'react-redux';
 import React from 'react';
 import { TextField, Grid, Button, Box, Paper } from '@material-ui/core';
 import { FormControl, FormLabel, RadioGroup, Radio, FormControlLabel } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
 import Header from '../Header/Header'
 import './Customer.css';
-import Checkout from '../Checkout/Checkout.jsx';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
     input: {

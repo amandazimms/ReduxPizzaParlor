@@ -1,4 +1,3 @@
-import { useState } from "react";
 import DataTable from '../DataTable/DataTable';
 
 function Admin( props ){
