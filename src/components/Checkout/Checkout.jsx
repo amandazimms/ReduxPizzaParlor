@@ -12,6 +12,7 @@ function Checkout( props ){
 
     const pizzas = useSelector(store => store.pizzas);
     const orders = useSelector(store => store.orders);
+    const pizzaTotal = useSelector(store => store.pizzaTotal);
 
     const rows = pizzas;
     //this is for the map on the DOM, not sure if it's redundant or necessary?
@@ -46,18 +47,28 @@ function Checkout( props ){
     const handleCloseAgree = () => {
       console.log( 'inhandleCloseAgree' );
       //set the value of the object using values from the store
-      setPlaceOrder( {
-        ...placeOrder, 
-        customer_name: orders.newCustomer.customerName,
-        street_address: orders.newCustomer.streetAddress,
-        city: orders.newCustomer.city,
-        zip: orders.newCustomer.zip,
-        type: orders.newCustomer.orderType,
-        total: pizzas.total,
-        selectedPizzas: pizzas
+      let pizzaIDs = [];
+
+      for (let i=0; i< pizzas.length; i++){
+        pizzaIDs.push(pizzas[i].cartObject.cartPizzaID);
+        console.log('in loop:', pizzas[i].cartObject.cartPizzaID);
+      }
+      
+      
+
+      console.log('checkout log', pizzas, pizzaIDs);
+      let order = ( { 
+        customer_name: orders[0].newCustomer.customerName,
+        street_address: orders[0].newCustomer.streetAddress,
+        city: orders[0].newCustomer.city,
+        zip: orders[0].newCustomer.zip,
+        type: orders[0].newCustomer.orderType,
+        total: pizzaTotal,
+        selectedPizzas: pizzaIDs
       });
+      console.log('placeorder', order);
       //send to the database via POST
-      axios.post( `/api/order`, placeOrder ).then( (response)=>{
+      axios.post( `/api/order`, order ).then( (response)=>{
         //send a dispatch with an empty array to empty out the store
         dispatch({ type: 'EMPTY', payload: [] });
       }).catch((err)=>{
@@ -68,7 +79,7 @@ function Checkout( props ){
 
 
     return(
-      <Container><p>{JSON.stringify(orders.newCustomer)}</p>
+      <Container><p>{JSON.stringify(rows)}</p>
       <Header headerType='CHECKOUT'/>
       <Typography variant="h2">Step 3: Checkout</Typography>
         <Grid container spacing={2} component={Paper}>
@@ -78,7 +89,7 @@ function Checkout( props ){
               <Paper>
                 <Typography variant="h5">{orders[0].newCustomer.customerName}</Typography>
                 <Typography variant="h5">{orders[0].newCustomer.streetAddress}</Typography>
-                <Typography variant="h5">{orders[0].newCustomer.city, orders[0].newCustomer.zip}</Typography>
+                <Typography variant="h5">{orders[0].newCustomer.city}, {orders[0].newCustomer.zip}</Typography>
               </Paper>
             </Box>
           </Grid>
@@ -97,15 +108,15 @@ function Checkout( props ){
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableCell><Typography variant="h6">Name</Typography></TableCell>
+                    <TableCell><Typography variant="h6">Pizza ID</Typography></TableCell>
                     <TableCell align="right"><Typography variant="h6">Cost</Typography></TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {rows.map((row) => (
                     <TableRow>
-                      <TableCell><Typography variant="subtitle1">{row.name}</Typography></TableCell>
-                      <TableCell align="right"><Typography variant="subtitle1">{row.price}</Typography></TableCell>
+                      <TableCell><Typography variant="subtitle1">{row.cartObject.cartPizzaID}</Typography></TableCell>
+                      <TableCell align="right"><Typography variant="subtitle1">{row.cartObject.cartPizzaPrice}</Typography></TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -117,7 +128,7 @@ function Checkout( props ){
           <Grid item xs={8} />
           <Grid item xs={4}>
             <Box p={3}>
-              <Paper><Typography variant="h4">Total: {pizzas.total}</Typography></Paper>
+              <Paper><Typography variant="h4">Total: {pizzaTotal}</Typography></Paper>
             </Box>
           </Grid>
 

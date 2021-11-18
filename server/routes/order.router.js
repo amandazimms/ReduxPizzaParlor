@@ -27,6 +27,7 @@ router.post('/', async (req, res) => {
             total,
             selectedPizzas
         } = req.body;
+        console.log(req.body);
         await client.query('BEGIN')
         const orderInsertResults = await client.query(`INSERT INTO "orders" ("customer_name", "street_address", "city", "zip", "type", "total")
         VALUES ($1, $2, $3, $4, $5, $6)
@@ -35,7 +36,7 @@ router.post('/', async (req, res) => {
 
         await Promise.all(selectedPizzas.map(pizza => {
             const insertLineItemText = `INSERT INTO "line_item" ("order_id", "pizza_id", "quantity") VALUES ($1, $2, $3)`;
-            const insertLineItemValues = [orderId, pizza.id, pizza.quantity];
+            const insertLineItemValues = [orderId, pizza, 1];
             return client.query(insertLineItemText, insertLineItemValues);
         }));
 

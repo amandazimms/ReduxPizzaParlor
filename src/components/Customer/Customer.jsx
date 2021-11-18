@@ -32,6 +32,7 @@ function Customer ( props ){
     //link to "for" attribute on label.
     const handleOrderTypeChange = ( event ) =>{
         setNewCustomer( {...newCustomer, orderType : event.target.value } );
+        console.log(event.target);
     }
 
   return (
@@ -94,7 +95,7 @@ function Customer ( props ){
                     <FormLabel component="legend">Order Type:</FormLabel>
                     <RadioGroup row
                                 aria-label="order type"
-                                defaultValue="pickup"
+                                // defaultValue="pickup"
                                 name="radio-buttons-group"
                                 onChange={ ( event ) => handleOrderTypeChange ( event ) }
                     >
