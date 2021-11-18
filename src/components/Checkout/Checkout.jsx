@@ -70,7 +70,7 @@ function Checkout( props ){
       //send to the database via POST
       axios.post( `/api/order`, order ).then( (response)=>{
         //send a dispatch with an empty array to empty out the store
-        dispatch({ type: 'EMPTY', payload: [] });
+        dispatch({ type: 'EMPTY' });
       }).catch((err)=>{
          alert('POST Failed');
          console.log(err);
@@ -79,7 +79,7 @@ function Checkout( props ){
 
 
     return(
-      <Container><p>{JSON.stringify(rows)}</p>
+      <Container>
       <Header headerType='CHECKOUT'/>
       <Typography variant="h2">Step 3: Checkout</Typography>
         <Grid container spacing={2} component={Paper}>
@@ -108,14 +108,14 @@ function Checkout( props ){
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableCell><Typography variant="h6">Pizza ID</Typography></TableCell>
+                    <TableCell><Typography variant="h6">Pizzas</Typography></TableCell>
                     <TableCell align="right"><Typography variant="h6">Cost</Typography></TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {rows.map((row) => (
                     <TableRow>
-                      <TableCell><Typography variant="subtitle1">{row.cartObject.cartPizzaID}</Typography></TableCell>
+                      <TableCell><Typography variant="subtitle1">{row.cartObject.cartPizzaName}</Typography></TableCell>
                       <TableCell align="right"><Typography variant="subtitle1">{row.cartObject.cartPizzaPrice}</Typography></TableCell>
                     </TableRow>
                   ))}

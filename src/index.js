@@ -39,7 +39,7 @@ const pizzas =  (state = [], action) => {
       return [...state, action.payload]; 
     }
     if (action.type === 'EMPTY'){
-      return action.payload;
+      return [];
     }
     return state;
 }
@@ -52,7 +52,7 @@ const pizzaTotal = ( state = 0 , action ) => {
   }
   
   if (action.type === 'EMPTY'){
-    return action.payload;
+    return 0;
   }
   return state;
 }
@@ -86,7 +86,7 @@ const orders =  (state = [], action) => {
   }
 
   if (action.type === 'EMPTY'){
-    return action.payload;
+    return [];
   }
   return state;
 }

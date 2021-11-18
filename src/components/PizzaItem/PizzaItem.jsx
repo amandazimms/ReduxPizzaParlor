@@ -17,6 +17,7 @@ function PizzaItem( props ){
     // let cartPizzaID;
     let cartObject = {
         cartPizzaID: 0,
+        cartPizzaName: '',
         cartPizzaPrice: 0
     }
 
@@ -27,6 +28,7 @@ function PizzaItem( props ){
     const addToCart=()=>{
         cartObject.cartPizzaID = props.pizza.id;
         cartObject.cartPizzaPrice += Number(props.pizza.price);
+        cartObject.cartPizzaName = props.pizza.name;
         dispatch({
             type: 'ADD_PIZZAS',
             payload: {cartObject}
@@ -36,6 +38,7 @@ function PizzaItem( props ){
     const removeFromCart=()=>{
         cartObject.cartPizzaID = props.pizza.id;
         cartObject.cartPizzaPrice += Number(props.pizza.price);
+        cartObject.cartPizzaName = props.pizza.name;
         dispatch({
             type: 'REMOVE_PIZZAS',
             payload: {cartObject}
