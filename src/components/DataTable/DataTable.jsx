@@ -1,8 +1,4 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
-import Box from '@mui/material/Box';
-import Collapse from '@mui/material/Collapse';
-import IconButton from '@mui/material/IconButton';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -10,15 +6,12 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import {useSelector, useDispatch} from 'react-redux';
 import {useEffect, useState} from 'react';
 import axios from 'axios';
 import { Button } from '@material-ui/core';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@material-ui/lab/AlertTitle';
-import Stack from '@mui/material/Stack';
 
 
 //DataTable is a sleek MUI table
@@ -40,7 +33,7 @@ function DataTable() {
       axios.get('/api/order').then ( ( response )=>{
         dispatch({type: 'SET_ORDERS', payload: response.data});
         
-        formatOrders(response.data);//<--if this is called here (my first instinct), DOM & formatOrders gets the orders, but findPizzasOnOrder starts with empty lineItems and pizzas
+        formatOrders(response.data);
       }).catch( ( err )=>{
         console.log( err );
         alert( 'problem!' );
@@ -58,10 +51,7 @@ function DataTable() {
             orderTime: order.time,
             type: order.type,
             cost: '$'+order.total,
-            //pizzas: findPizzasOnOrder(order.id)
-            pizzas: [{id: 0, quantity: 0},{id: 0,quantity: 0}] //<-placeholders because above line not fully functional
           })
-          //findPizzasOnOrder(order.id);
       }
       setRows(formattedOrders);
     }
@@ -69,7 +59,7 @@ function DataTable() {
 
     const showOrderDetails = (id) => {
       //function that takes in an order ID and makes an axios call to do some SQL joins, 
-      //to ultimately display a list of pizzas belonging to each customer order
+      //to ultimately display a list of pizzas, in a react alert, belonging to each customer order
 
       let thisOrdersPizzas = []
         axios.get(`/api/lineItem/${id}`).then ( ( response )=>{
@@ -80,7 +70,6 @@ function DataTable() {
           console.log( err );
         alert( 'problem!' );
         }) 
-
     }
 
   return (
@@ -102,7 +91,6 @@ function DataTable() {
       <p></p>
       }
       
-
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
@@ -113,7 +101,7 @@ function DataTable() {
               <TableCell align="right"><h3>Type</h3></TableCell>
               <TableCell align="right"><h3>Cost</h3></TableCell>
               <TableCell/>
-              {/* ^ Empty cell to go above our buttons */}
+              {/* ^ Empty cell to go above our 'details' buttons */}
           </TableRow>
         </TableHead>
         <TableBody>
