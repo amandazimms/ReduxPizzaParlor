@@ -23,7 +23,7 @@ const useStyles = makeStyles({
 function Header( props ) {
   const[ headerType, setHeaderType] = useState( props.headerType )
   //Get the pizza total each time the header is rendered to the DOM
-  const pizzaTotal = useSelector( store=>store.pizzas );
+  const pizzasStore = useSelector( store=>store.pizzas );
   const classes = useStyles();
 
 function HideCartInfo() {
