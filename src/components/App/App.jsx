@@ -26,7 +26,7 @@ function App() {
   const getPizzaList=()=>{
     console.log('in getPizzaList');
     axios.get('api/pizza').then((response)=>{
-      console.log(response.data);
+      //console.log(response.data);
       setPizzaList(response.data);
     }).catch((err)=>{
       alert('Error getting PizzaList');
