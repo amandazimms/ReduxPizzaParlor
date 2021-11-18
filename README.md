@@ -2,6 +2,8 @@
     
 # Redux Pizza Parlor
 
+*Duration: 4-Day Sprint*
+
 ## Table of Contents
 
 - [Description](#description)
@@ -17,7 +19,7 @@
 
 ## Description
 
-For this project, server side code for baseline functionality was provided for us by Prime Digital Academy. Each member of our team created a `pizza_parlor` database and took primary responsibility for one aspect of the `src` folder to focus on while supporting everyone in the group as needed. Our focus was using React, Redux, and Material UI to create a smooth interactive user experience and a seamless connection with the backend code that was provided.
+Redux Pizza Parlor is an app that simulates the experience of ordering pizza online. You choose your pizzas and add them to your cart, add your customer orderails such as address and pickup/delivery, confirm the information on the checkout page, and submit the order to be stored in a database. Admins can also view the full order history on an unlinked page. 
 
 ## Screenshots
 
@@ -40,9 +42,17 @@ Express, Node.js, Postico
 
 Fork and clone, and use the database.sql file to use to set up a local database. Run `npm run server` and `npm run client` (in two terminals).
 
-## Usage
+### Usage
 
 Usage should be intuitive: On the homepage, select your desired pizzas and click `Next`. Enter customer info on the page that loads next. The page after that contains the details of your order and a confirmation dialogue asking you to confirm your order. Once you do, your order will be added to the database and you will be rerouted to the homepage. If you go to `/admin`, you will be able to see all details of all orders in the database. Use the `details` button to view the pizzas on each order.
+
+## Workflow
+
+Each member of our team created a `pizza_parlor` database and took primary responsibility for one aspect of the app. Our focus was using React, Redux, and Material UI to create a smooth interactive user experience and a seamless connection to the database via routers, some of which were provided and some built by us. 
+
+My personal contribution was to create the Admin page (accessible by visiting `/admin`). I researched  Material UI and its DataTable element for a sleek and modular way to display a list of orders. I utilized Axios to dispatch order details from our database to the DataTable component, formatting it for more human-readable display. 
+
+One stretch goal I accomplished was to also display the individual pizzas from each order on the Admin page. To accomplish this, I made another Axios call which is received in the line item router. There, a `SQL JOIN` query pulls the `line_items`, `pizzas`, and `orders` tables together and sends the result back to the DataTable component. These individual pizzas are displayed when the user clicks the `details` button on each order, which shows them to the user in an MUI alert. 
 
 ## Acknowledgements
 

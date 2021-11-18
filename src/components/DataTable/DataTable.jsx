@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -16,9 +15,6 @@ import AlertTitle from '@material-ui/lab/AlertTitle';
 
 //DataTable is a sleek MUI table
 function DataTable() {
-
-    const orders = useSelector( store=>store.orders );
-
     const [rows, setRows]=useState([]); //orders get stored as 'rows' for the purpose of mui stuff below
     const [pizzasOnThisOrder, setPizzasOnThisOrder]=useState([]); 
     const [show, setShow] = useState(false);
@@ -61,7 +57,6 @@ function DataTable() {
       //function that takes in an order ID and makes an axios call to do some SQL joins, 
       //to ultimately display a list of pizzas, in a react alert, belonging to each customer order
 
-      let thisOrdersPizzas = []
         axios.get(`/api/lineItem/${id}`).then ( ( response )=>{
           dispatch({type: 'SET_LINE_ITEMS', payload: response.data});
           setPizzasOnThisOrder(response.data);
