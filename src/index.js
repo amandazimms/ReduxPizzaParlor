@@ -43,7 +43,9 @@ const pizzas =  (state = [], action) => {
 
 const pizzaTotal = ( state = 0 , action ) => {
   if( action.type === 'ADD_PIZZAS' ) {
-    return state + action.payload.cartObject.cartPizzaPrice; //need to be more specific TODO
+    return state + action.payload.cartObject.cartPizzaPrice; 
+  } else if ( action.type === 'REMOVE_PIZZAS' ) {
+    return state - action.payload.cartObject.cartPizzaPrice;
   }
   return state;
 }
