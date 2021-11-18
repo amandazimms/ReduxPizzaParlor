@@ -68,7 +68,7 @@ function Checkout( props ){
 
     return(
       <Container>
-      <Header />
+      <Header headerType='CHECKOUT'/>
       <Typography variant="h2">Step 3: Checkout</Typography>
         <Grid container spacing={2} component={Paper}>
 
