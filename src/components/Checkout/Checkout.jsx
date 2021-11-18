@@ -67,7 +67,7 @@ function Checkout( props ){
 
 
     return(
-      <Container>
+      <Container><p>{JSON.stringify(orders.newCustomer)}</p>
       <Header headerType='CHECKOUT'/>
       <Typography variant="h2">Step 3: Checkout</Typography>
         <Grid container spacing={2} component={Paper}>
@@ -75,9 +75,9 @@ function Checkout( props ){
           <Grid item xs={3}>
             <Box p={3}>
               <Paper>
-                <Typography variant="h5">{orders.newCustomer.customerName}</Typography>
-                <Typography variant="h5">{orders.newCustomer.streetAddress}</Typography>
-                <Typography variant="h5">{orders.newCustomer.city, orders.newCustomer.zip}</Typography>
+                <Typography variant="h5">{orders[0].newCustomer.customerName}</Typography>
+                <Typography variant="h5">{orders[0].newCustomer.streetAddress}</Typography>
+                <Typography variant="h5">{orders[0].newCustomer.city, orders[0].newCustomer.zip}</Typography>
               </Paper>
             </Box>
           </Grid>
@@ -85,7 +85,7 @@ function Checkout( props ){
           <Grid item xs={3}>
             <Box p={3}>
               <Paper>
-                <Typography variant="h5">{orders.newCustomer.orderType}</Typography>
+                <Typography variant="h5">{orders[0].newCustomer.orderType}</Typography>
               </Paper>
             </Box>
           </Grid>
