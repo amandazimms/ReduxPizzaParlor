@@ -38,6 +38,9 @@ const pizzas =  (state = [], action) => {
       }
       return [...state, action.payload]; 
     }
+    if (action.type === 'EMPTY'){
+      return action.payload;
+    }
     return state;
 }
 
@@ -47,11 +50,16 @@ const pizzaTotal = ( state = 0 , action ) => {
   } else if ( action.type === 'REMOVE_PIZZAS' ) {
     return state - action.payload.cartObject.cartPizzaPrice;
   }
+  
+  if (action.type === 'EMPTY'){
+    return action.payload;
+  }
   return state;
 }
 
 const orders =  (state = [], action) => {
   if ( action.type === 'ADD_CUSTOMER' ){
+    console.log(action.payload);
       return [...state, action.payload];
   }
 
@@ -75,6 +83,10 @@ const orders =  (state = [], action) => {
         console.log( err );
         alert( 'problem!' );
     }) 
+  }
+
+  if (action.type === 'EMPTY'){
+    return action.payload;
   }
   return state;
 }

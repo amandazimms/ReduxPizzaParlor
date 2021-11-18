@@ -47,11 +47,11 @@ function Checkout( props ){
       //set the value of the object using values from the store
       setPlaceOrder( {
         ...placeOrder, 
-        customer_name: orders.customerName,
-        street_address: orders.streetAddress,
-        city: orders.city,
-        zip: orders.zip,
-        type: orders.orderType,
+        customer_name: orders.newCustomer.customerName,
+        street_address: orders.newCustomer.streetAddress,
+        city: orders.newCustomer.city,
+        zip: orders.newCustomer.zip,
+        type: orders.newCustomer.orderType,
         total: pizzas.total,
         selectedPizzas: pizzas
       });
@@ -75,9 +75,9 @@ function Checkout( props ){
           <Grid item xs={3}>
             <Box p={3}>
               <Paper>
-                <Typography variant="h5">{orders.customerName}</Typography>
-                <Typography variant="h5">{orders.streetAddress}</Typography>
-                <Typography variant="h5">{orders.city, orders.zip}</Typography>
+                <Typography variant="h5">{orders.newCustomer.customerName}</Typography>
+                <Typography variant="h5">{orders.newCustomer.streetAddress}</Typography>
+                <Typography variant="h5">{orders.newCustomer.city, orders.newCustomer.zip}</Typography>
               </Paper>
             </Box>
           </Grid>
@@ -85,7 +85,7 @@ function Checkout( props ){
           <Grid item xs={3}>
             <Box p={3}>
               <Paper>
-                <Typography variant="h5">{orders.orderType}</Typography>
+                <Typography variant="h5">{orders.newCustomer.orderType}</Typography>
               </Paper>
             </Box>
           </Grid>
