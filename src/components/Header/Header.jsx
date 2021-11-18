@@ -23,7 +23,7 @@ const useStyles = makeStyles({
 function Header( props ) {
   const[ headerType, setHeaderType] = useState( props.headerType )
   //Get the pizza total each time the header is rendered to the DOM
-  const pizzasStore = useSelector( store=>store.pizzas );
+  const pizzaTotal = useSelector( store=>store.pizzaTotal );
   const classes = useStyles();
 
 function HideCartInfo() {
@@ -53,6 +53,7 @@ function ShowCartInfo() {
 
   return (
     <div className='header'>
+      {/* <p>{JSON.stringify(pizzaTotal)}</p> */}
       <Grid container>
 
         <Grid item xs={5}>

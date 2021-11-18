@@ -22,7 +22,7 @@ const pizzas =  (state = [], action) => {
       cartTotalRaw += Number(action.payload.cartObject.cartPizzaPrice);
       cartTotal = Number(cartTotalRaw.toFixed(2));
       console.log('cartTotal:', cartTotal);
-      return [...state, cartTotal];
+      return [...state, action.payload];
     }
 
     if (action.type === 'REMOVE_PIZZAS'){
@@ -39,6 +39,13 @@ const pizzas =  (state = [], action) => {
       return [...state, action.payload]; 
     }
     return state;
+}
+
+const pizzaTotal = ( state = 0 , action ) => {
+  if( action.type === 'ADD_PIZZAS' ) {
+    return state + action.payload.cartObject.cartPizzaPrice; //need to be more specific TODO
+  }
+  return state;
 }
 
 const orders =  (state = [], action) => {
@@ -82,7 +89,8 @@ const storeInstance = createStore(
       {
         pizzas,
         orders,
-        lineItems
+        lineItems,
+        pizzaTotal
       }
     ),
     applyMiddleware(
