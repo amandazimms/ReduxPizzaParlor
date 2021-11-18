@@ -34,7 +34,7 @@ For this project, server side code for baseline functionality was provided for u
 
 ### Prerequisites
 
-Express - a web framework for Node.js Postgresql - an open source relational database
+Express, Node.js, Postico
 
 ### Installation
 
@@ -42,12 +42,12 @@ Fork and clone, and use the database.sql file to use to set up a local database.
 
 ## Usage
 
-Usage should be intuitive. On the homepage, select your desired pizzas and click `Next`. Enter customer info on the page that loads next. The page after that contains the details of your order and a confirmation dialogue asking you to confirm your order. Once you do, your order will be added to the database and you will be rerouted to the homepage. If you go to `/admin`, you will be able to see all details of your order.
+Usage should be intuitive: On the homepage, select your desired pizzas and click `Next`. Enter customer info on the page that loads next. The page after that contains the details of your order and a confirmation dialogue asking you to confirm your order. Once you do, your order will be added to the database and you will be rerouted to the homepage. If you go to `/admin`, you will be able to see all details of all orders in the database. Use the `details` button to view the pizzas on each order.
 
 ## Acknowledgements
 
-OUR TEAM IS AMAZING! Thank you to Jen Alexander, CJ Barnes, Amanda Zimmerman, Pete Stapp, and Miriam McNamara for navigating our first truly complicated group challenge together, and to our instructor Dev for all of his support throughout the process.
+I love my team! Thank you so much [Jen Alexander](https://github.com/jenny-alexander), [CJ Barnes](https://github.com/cee-jay-bee), [Pete Stapp](https://github.com/petestapp), and [Miriam McNamara](https://github.com/MiriamMcNamara) for being such excellent communicators and hard workers during this, our most most complex group challenge yet. Shoutout to [Prime](https://github.com/PrimeAcademy/ "Prime") and our instructor [Dev](https://github.com/devjanaprime/ "Dev") for outlining such an exciting project for us to do.
 
-## Contacts
+## Contact Me
 
-<a href="https://www.linkedin.com/in/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" /></a>  
+<a href="https://www.linkedin.com/in/amanda-zimmerman-206496123/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" /></a>  
