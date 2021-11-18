@@ -1,121 +1,53 @@
-# React Pizza Parlor
+ ![Repo Size](https://img.shields.io/github/languages/code-size/jenny-alexander/redux-pizza-parlor.svg?style=for-the-badge) ![TOP_LANGUAGE](https://img.shields.io/github/languages/top/jenny-alexander/redux-pizza-parlor.svg?style=for-the-badge) 
+    
+# Redux Pizza Parlor
 
-Before you get started make sure to read through **ALL** requirements and outline a plan for your group. Assign out tasks and use branches to allow team members to work in parallel.
+## Table of Contents
 
-### Setup
+- [Description](#description)
+- [Screenshots](#screenshots)
+- [Built With](#built-with)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Usage](#usage)
+- [License](#license)
+- [Acknowledgements](#acknowledgements)
+- [Contacts](#contacts)
 
-Server side code for baseline functionality has been provided for you. Each member of your team will need to create a `pizza_parlor` database.
+## Description
 
-**Import data**
+For this project, server side code for baseline functionality was provided for us by Prime Digital Academy. Each member of our team created a `pizza_parlor` database and took primary responsibility for one aspect of the `src` folder to focus on while supporting everyone in the group as needed. Our focus was using React, Redux, and Material UI to create a smooth interactive user experience and a seamless connection with the backend code that was provided.
 
-Right now, the owner enters all of the orders in SQL, but they want any of their employees to be able to enter a new order. The owner has provided some of the server side routes and a way to create their database with (`database.sql`). Your team should build out the following views.
+## Screenshots
 
-**Start your server**
+![Step 1](public/images/Step1.png)
+![Step 2](public/images/Step2.png)
+![Step 3](public/images/Step3.png)
+![Admin Page](public/images/Admin.png)
 
-```
-npm install
-npm run server
-```
+## Built With
 
-Now that the server is running, open a new terminal tab with `cmd + t` and start the react client app.
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" height="40px" width="40px" /></a><a href="https://material-ui.com/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/materialui/materialui-original.svg" height="40px" width="40px" /></a><a href="https://nodejs.org/en/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original.svg" height="40px" width="40px" /></a><a href="https://www.postgresql.org/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original.svg" height="40px" width="40px" /></a><a href="https://reactjs.org/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" height="40px" width="40px" /></a><a href="https://redux.js.org/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/redux/redux-original.svg" height="40px" width="40px" /></a>
 
-**Start your client**
+## Getting Started
 
-```
-npm run client
-```
+### Prerequisites
 
-## Base Mode ad API DOCS
+Express - a web framework for Node.js Postgresql - an open source relational database
 
-The tasks for Base Mode are broken down further [on this Trello Board](https://trello.com/b/aWXfG8D6/redux-pizza-parlor). Take time before diving into the code to copy this board and build out the plan even further.
+### Installation
 
-After starting up the server, the following routes should be available. You can test them with Postman.
+There is a database.sql file to use to set up a database. After that once you fork and clone the repository, you should be able to run the server and client to be able to use the app.
 
-### GET PIZZA  
+## Usage
 
-`/api/pizza`
+Usage should be intuitive. On the homepage, select your desired pizzas and click `Next`. Enter customer info on the page that loads next. The page after that contains the details of your order and a confirmation dialogue asking you to confirm your order. Once you do, your order will be added to the database and you will be rerouted to the homepage. If you go to `/admin`, you will be able to see all details of your order.
 
-**Returns** an array of objects with *
+## Acknowledgements
 
+OUR TEAM IS AMAZING! Thank you to Jen Alexander, CJ Barnes, Amanda Zimmerman, Pete Stapp, and Miriam McNamara for navigating our first truly complicated group challenge together, and to our instructor Dev for all of his support throughout the process.
 
+## Contacts
 
-
-
-
-
-*, *name*, *description*, *image_path* and *cost* properties. 
-
-### POST ORDER
-
-`/api/order`
-
-**Post Data** should be an object that contains user information, *customer name*, *street address*, *city*, *zip*, *order_total* and an array of pizza id's as object. 
-
-In Postman, select the Body tab, select Raw radio button, and then a blue dropdown appears and select JSON.
-
-**Example JSON Post Data:**
-
-```JSON
-{
-  "customer_name": "Donatello",
-  "street_address": "20 W 34th St",
-  "city": "New York",
-  "zip": "10001",
-  "total": "27.98",
-  "type": "Pickup",
-  "pizzas": [{
-    "id": "1",
-    "quantity": "1"
-  },{
-    "id": "2",
-    "quantity": "1"
-  }]
-}
-```
-
-### GET ORDERS
-
-`/api/order`
-
-**Returns** an array of orders.
-
-
-## BASE REQUIREMENTS
-
-Your client has asked your team to build a pizza ordering system.
-
-### ORDER - SELECT PIZZA
-
-When visiting [http://localhost:3000/](http://localhost:3000/) display all of the pizzas on the screen. Allow users to add or remove each pizza they would like to order. **For base mode, only allow the user to have one of each pizza in their cart.** Show the total cost of items in the cart in the top right of this page. 
-
-This page should have a next button that brings the user to the **enter order details page**.
-
-![Select Pizza View](wireframes/screen-one.png)
-
-### ORDER - ENTER CUSTOMER INFORMATION
-
-Collect user information, *name*, *street address*, *city* and *zip*. This page should have an option to select pickup vs. delivery. The total cost of the order should appear in the top right of this page. This page should have a next button that brings the user to the **checkout** page.
-
-![Select Pizza View](wireframes/screen-two.png)
-
-### ORDER - CHECKOUT
-
-Users should not be able to modify item totals on this screen. When they click checkout, the user information, order total and array of pizzas should be sent to the server. After the checkout is complete, navigate the user back to the **select pizza** page AND clear out the reducers as appropriate. Each order should begin with "clean" order data (cart, address, etc).
-
-![Select Pizza View](wireframes/screen-three.png)
-
-### ADMIN - ORDERS
-
-This page **should not** appear in the navigation bar. Eventually the client would like to add authentication but for now, it will be available to anyone with the url [http://localhost:3000/admin](http://localhost:3000/admin). This page will display the name, time and order total for each of the orders placed.
-
-![Select Pizza View](wireframes/screen-admin.png)
-
-
-## STRETCH GOALS
-
-- Improve the styling of the app using Material-UI cards, buttons, nav bar and icons.
-- Allow the user to go back to previous pages (until they've completed checkout).
-- Display a list of pizzas for each order on the orders page.
-- Add pictures to the `public/images` folder and update the image url for each pizza in the database.
-- Add a button on the orders page to track delivery status.
-- Allow admins to click on an order and see all of the details for that order (which pizzas were a part of that particular order). For the details of the order with `id` of `1`, it will be available to anyone with the url [http://localhost:3000/order/1](http://localhost:3000/order/1). This route is not built on the server, so you will need to create it.
+<a href="https://www.linkedin.com/in/https://www.linkedin.com/in/miriam-mcnamara/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" /></a>  
