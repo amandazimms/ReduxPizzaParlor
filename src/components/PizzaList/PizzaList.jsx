@@ -1,10 +1,7 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
 import React from "react";
 import PizzaItem from "../PizzaItem/PizzaItem";
 import Header from "../Header/Header";
-import { Typography, Grid, Container, Box, Button, Table, TableHead, TableBody, TableCell, TableContainer, TableRow, Paper, Link } from '@material-ui/core';
-import { shadows } from '@mui/system';
+import { Typography, Grid, Container, Button, Link } from '@material-ui/core';
 
 function PizzaList( props ){
     // const[ name, setName ]=useState( null );
@@ -24,7 +21,7 @@ function PizzaList( props ){
                 <Button id="go-to-custumer-info"
                         size="large" 
                         variant="contained" >
-                        <Link to="/checkout">Next</Link>
+                        <Link to="/customer">Next</Link>
                 </Button>
             </Container>
         </div>
