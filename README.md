@@ -38,7 +38,7 @@ Express - a web framework for Node.js Postgresql - an open source relational dat
 
 ### Installation
 
-There is a database.sql file to use to set up a database. After that once you fork and clone the repository, you should be able to run the server and client to be able to use the app.
+Fork and clone, and use the database.sql file to use to set up a local database. Run `npm run server` and `npm run client` (in two terminals).
 
 ## Usage
 
