@@ -38,7 +38,7 @@ function Customer ( props ){
     <div>
         <Header headerType="CUSTOMER" />
         <h2 id="customerTitle">Step 2: Customer Information</h2>
-        <p> props: { JSON.stringify( customer ) } </p>
+        {/* <p> props: { JSON.stringify( customer ) } </p> */}
         <div class="customer-input"></div>
         <Grid container>
             <Grid item xs={3}>
