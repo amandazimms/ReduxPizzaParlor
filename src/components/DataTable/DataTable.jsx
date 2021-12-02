@@ -28,11 +28,10 @@ function DataTable() {
     const getOrders = () => {
       axios.get('/api/order').then ( ( response )=>{
         dispatch({type: 'SET_ORDERS', payload: response.data});
-        
         formatOrders(response.data);
       }).catch( ( err )=>{
         console.log( err );
-        alert( 'problem!' );
+        alert( 'problem with getting orders!' );
       }) 
     } 
 
@@ -56,20 +55,21 @@ function DataTable() {
     const showOrderDetails = (id) => {
       //function that takes in an order ID and makes an axios call to do some SQL joins, 
       //to ultimately display a list of pizzas, in a react alert, belonging to each customer order
-
         axios.get(`/api/lineItem/${id}`).then ( ( response )=>{
           dispatch({type: 'SET_LINE_ITEMS', payload: response.data});
           setPizzasOnThisOrder(response.data);
           setShow(true);
         }).catch( ( err )=>{
           console.log( err );
-        alert( 'problem!' );
-        }) 
+        alert( 'problem with getting order details!' );
+        })
     }
+    
 
   return (
     <div>
     
+      {/* display order details alert if details button has been clicked */}
       {show ? 
       <Alert show={show} severity="info" align="center" dismissible>
         <AlertTitle  align="left">This Customer's Order Details:</AlertTitle>

@@ -50,9 +50,11 @@ Usage should be intuitive: On the homepage, select your desired pizzas and click
 
 Each member of our team created a `pizza_parlor` database and took primary responsibility for one aspect of the app. Our focus was using React, Redux, and Material UI to create a smooth interactive user experience and a seamless connection to the database via routers, some of which were provided and some built by us. 
 
+#### My Contributions
+
 My personal contribution was to create the Admin page (accessible by visiting `/admin`). I researched  Material UI and its DataTable element for a sleek and modular way to display a list of orders. I utilized Axios to dispatch order details from our database to the DataTable component, formatting it for more human-readable display. 
 
-One stretch goal I accomplished was to also display the individual pizzas from each order on the Admin page. To accomplish this, I made another Axios call which is received in the line item router. There, a `SQL JOIN` query pulls the `line_items`, `pizzas`, and `orders` tables together and sends the result back to the DataTable component. These individual pizzas are displayed when the user clicks the `details` button on each order, which shows them to the user in an MUI alert. 
+One stretch goal I accomplished was to also display the individual pizzas from each order on the Admin page. To accomplish this, I made another Axios call which is received in the line item router. There, a `SQL JOIN` query pulls the `line_items`, `pizzas`, and `orders` tables together and sends the result back to the DataTable component. These individual pizzas are displayed when the user clicks the `details` button on each order, which shows them to the user in an MUI alert.
 
 ## Acknowledgements
 
